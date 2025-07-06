@@ -1,0 +1,504 @@
+﻿# Visual Studio specific
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Roslyn cache
+.roslyn/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# BenchmarkDotNet artifacts
+BenchmarkDotNet.Artifacts/
+
+# StyleCop
+StyleCopReport.xml
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Chutzpah Test files
+_Chutzpah*
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Visual Studio Trace Files
+*.e2e
+
+# TFS Raw Logs
+BuildLog.*.log
+
+# Guidance Automation Toolkit
+*.gpState
+
+# ReSharper is a Visual Studio extension
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# TeamCity is a build server
+_TeamCity*
+
+# DotCover is a Code Coverage Tool
+*.dotCover
+
+# AxoCover is a Code Coverage Tool
+.axoCover/*
+!.axoCover/settings.json
+
+# Visual Studio code coverage results
+*.coverage
+*.coveragexml
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# MightyMoose
+*.mm.*
+AutoTest.Net/
+
+# Web workbench (sass)
+.sass-cache/
+
+# Installshield output folder
+[Ee]xpress/
+
+# DocProject is a documentation generator add-in
+DocProject/buildhelp/
+DocProject/Help/*.HxT
+DocProject/Help/*.HxC
+DocProject/Help/*.hhc
+DocProject/Help/*.hhk
+DocProject/Help/*.hhp
+DocProject/Help/html/
+DocProject/Help/HxS/
+
+# ClickOnce directory
+publish/
+
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+# TODO: Comment the next line if you want to checkin your web deploy settings
+# but database connection strings (with potential passwords) will be committed
+*.pubxml
+*.publishproj
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# JetBrains Rider
+*.sln.iml
+
+# CodeRush
+.cr/
+
+# Python Tools for Visual Studio (PTVS)
+__pycache__/
+*.pyc
+
+# Cake - Uncomment if you are using it
+# tools/**
+# !tools/packages.config
+
+# Tabs Studio
+*.tss
+
+# Telerik's JustDecompile decompiled assembly folder created by default
+%APPDATA%\JustDecompile\Libraries
+
+# Output files from JetBrains Rider Test Runner
+*.testrunner.xml
+
+# Paket dependency manager
+.paket/paket.exe
+paket-files/
+
+# FAKE - F# Make
+.fake/
+
+# VS Code files for those working on multiple platforms
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio
+.localhistory/
+
+# BeatPulse healthcheck temp database
+healthchecksdb
+
+# Backup and temporary files
+*~
+*.bak
+*.tmp
+
+# Ignore files specific to Cognex or other libraries if needed
+# Example:
+# *.coglog
+# *.vpp
+# *.job
+# *.idb
+# *.cdb (Consider if these should be version controlled or not)
+# *.dat (Consider if these should be version controlled or not)
+# *.xml (Be specific if ignoring XML, e.g., */config/*.xml)
+
+# User-specific settings (often contain local paths)
+*.settings
+
+# Environment specific configuration files (if managed outside git)
+# App.Local.config
+# ConnectionStrings.config
+```
+
+**Cách sử dụng:**
+
+1.  Tạo một file mới trong thư mục gốc của dự án (thư mục chứa file `Toptech.sln`).
+2.  Đặt tên file là `.gitignore` (lưu ý dấu chấm ở đầu).
+3.  Sao chép và dán nội dung trên vào file `.gitignore`.
+4.  Lưu file.
+5.  Commit file `.gitignore` vào kho lưu trữ Git của bạn.
+
+**Lưu ý:**
+
+*   File `.gitignore` này bao gồm các mẫu phổ biến cho các dự án C# và Visual Studio.
+*   Các dòng bắt đầu bằng `#` là chú thích.
+*   Bạn có thể cần điều chỉnh file này tùy thuộc vào các công cụ, thư viện hoặc cấu trúc thư mục cụ thể mà bạn sử dụng. Ví dụ, tôi đã thêm một vài ví dụ về các file Cognex có thể có (`*.coglog`, `*.vpp`, `*.cdb`, v.v.) trong phần chú thích. Bạn nên xem xét cẩn thận xem những loại file nào (đặc biệt là file cấu hình hoặc dữ liệu như `.cdb`, `.dat`, `.xml`) nên được đưa vào kiểm soát phiên bản và loại nào nên được bỏ qua.
+*   Nếu bạn đã commit các file mà bạn muốn bỏ qua, bạn cần xóa chúng khỏi chỉ mục Git bằng lệnh:
+    ```bash
+    git rm --cached <file_path>
+    ```
+    Sau đó commit thay đổi này.# filepath: c:\Users\abc\Desktop\Toptech\.gitignore
+# Visual Studio specific
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Roslyn cache
+.roslyn/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# BenchmarkDotNet artifacts
+BenchmarkDotNet.Artifacts/
+
+# StyleCop
+StyleCopReport.xml
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Chutzpah Test files
+_Chutzpah*
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Visual Studio Trace Files
+*.e2e
+
+# TFS Raw Logs
+BuildLog.*.log
+
+# Guidance Automation Toolkit
+*.gpState
+
+# ReSharper is a Visual Studio extension
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# TeamCity is a build server
+_TeamCity*
+
+# DotCover is a Code Coverage Tool
+*.dotCover
+
+# AxoCover is a Code Coverage Tool
+.axoCover/*
+!.axoCover/settings.json
+
+# Visual Studio code coverage results
+*.coverage
+*.coveragexml
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# MightyMoose
+*.mm.*
+AutoTest.Net/
+
+# Web workbench (sass)
+.sass-cache/
+
+# Installshield output folder
+[Ee]xpress/
+
+# DocProject is a documentation generator add-in
+DocProject/buildhelp/
+DocProject/Help/*.HxT
+DocProject/Help/*.HxC
+DocProject/Help/*.hhc
+DocProject/Help/*.hhk
+DocProject/Help/*.hhp
+DocProject/Help/html/
+DocProject/Help/HxS/
+
+# ClickOnce directory
+publish/
+
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+# TODO: Comment the next line if you want to checkin your web deploy settings
+# but database connection strings (with potential passwords) will be committed
+*.pubxml
+*.publishproj
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# JetBrains Rider
+*.sln.iml
+
+# CodeRush
+.cr/
+
+# Python Tools for Visual Studio (PTVS)
+__pycache__/
+*.pyc
+
+# Cake - Uncomment if you are using it
+# tools/**
+# !tools/packages.config
+
+# Tabs Studio
+*.tss
+
+# Telerik's JustDecompile decompiled assembly folder created by default
+%APPDATA%\JustDecompile\Libraries
+
+# Output files from JetBrains Rider Test Runner
+*.testrunner.xml
+
+# Paket dependency manager
+.paket/paket.exe
+paket-files/
+
+# FAKE - F# Make
+.fake/
+
+# VS Code files for those working on multiple platforms
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio
+.localhistory/
+
+# BeatPulse healthcheck temp database
+healthchecksdb
+
+# Backup and temporary files
+*~
+*.bak
+*.tmp
+
+# Ignore files specific to Cognex or other libraries if needed
+# Example:
+# *.coglog
+# *.vpp
+# *.job
+# *.idb
+# *.cdb (Consider if these should be version controlled or not)
+# *.dat (Consider if these should be version controlled or not)
+# *.xml (Be specific if ignoring XML, e.g., */config/*.xml)
+
+# User-specific settings (often contain local paths)
+*.settings
+
+# Environment specific configuration files (if managed outside git)
+# App.Local.config
+# ConnectionStrings.config
+```
+
+**Cách sử dụng:**
+
+1.  Tạo một file mới trong thư mục gốc của dự án (thư mục chứa file `Toptech.sln`).
+2.  Đặt tên file là `.gitignore` (lưu ý dấu chấm ở đầu).
+3.  Sao chép và dán nội dung trên vào file `.gitignore`.
+4.  Lưu file.
+5.  Commit file `.gitignore` vào kho lưu trữ Git của bạn.
+
+**Lưu ý:**
+
+*   File `.gitignore` này bao gồm các mẫu phổ biến cho các dự án C# và Visual Studio.
+*   Các dòng bắt đầu bằng `#` là chú thích.
+*   Bạn có thể cần điều chỉnh file này tùy thuộc vào các công cụ, thư viện hoặc cấu trúc thư mục cụ thể mà bạn sử dụng. Ví dụ, tôi đã thêm một vài ví dụ về các file Cognex có thể có (`*.coglog`, `*.vpp`, `*.cdb`, v.v.) trong phần chú thích. Bạn nên xem xét cẩn thận xem những loại file nào (đặc biệt là file cấu hình hoặc dữ liệu như `.cdb`, `.dat`, `.xml`) nên được đưa vào kiểm soát phiên bản và loại nào nên được bỏ qua.
+*   Nếu bạn đã commit các file mà bạn muốn bỏ qua, bạn cần xóa chúng khỏi chỉ mục Git bằng lệnh:
+    ```bash
+    git rm --cached <file_path>
+    ```
+    Sau đó commit thay đổi này.
