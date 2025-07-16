@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>6Axis.png</file>
+    <file>6Axis_on.png</file>
+    <file>del.png</file>
+    <file>del_red.png</file>
+    <file>Error.png</file>
+    <file>Error_on.png</file>
+    <file>icon.ico</file>
+    <file>monitor.png</file>
+    <file>monitor_on.png</file>
+    <file>Socket.png</file>
+    <file>Socket_on.png</file>
+  </qresource>
+</RCC>
