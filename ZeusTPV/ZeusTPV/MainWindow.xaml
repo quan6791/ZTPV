@@ -329,7 +329,8 @@
                                 Width="40"
                                 Height="40"
                                 Background="Transparent"
-                                BorderThickness="0">
+                                BorderThickness="0"
+                                Click="Button_Click">
                             <Image Source="/image/XYZ/RzpBtn.png"
                                    Stretch="Fill" />
                         </Button>
