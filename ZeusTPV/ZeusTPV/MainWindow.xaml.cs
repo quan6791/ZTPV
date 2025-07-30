@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 
 namespace ZeusTPV
 {
@@ -8,42 +9,144 @@ namespace ZeusTPV
     public partial class MainWindow : Window
     {
 
-        private Robot rb = new Robot("192.168.0.23", 12345);
+        //private const string IP_ADDR = "192.168.0.23";
+        //private const int PORT = 12345;
+        //private Robot rb;
+        private Jog jog;
         public MainWindow()
         {
             InitializeComponent();
 
+            //rb = new Robot(IP_ADDR, PORT);
+            //Console.WriteLine(rb.Open());
 
-            //var rb = new Robot("192.168.0.23", 12345);
-            //rb.Open();
-            //rb.AcqPermission();
-
-            //while (true)
+            //var ret = rb.AcqPermission();
+            //while (!(bool)ret[0]) // Cast the object to bool
             //{
-            //    var result1 = rb.JntMove(45, 0, 0, 0, 0, 0, 5, 1.0, 1.0);
-            //    if (result1[0].ToString() != "True")
-            //    {
-            //        Environment.Exit(1);
-            //    }
-            //    System.Threading.Thread.Sleep(1000);
-
-            //    var result2 = rb.JntMove(-45, 0, 0, 0, 0, 0, 5, 1.0, 1.0);
-            //    if (result2[0].ToString() != "True")
-            //    {
-            //        Environment.Exit(1);
-            //    }
-            //    System.Threading.Thread.Sleep(1000);
+            //    Console.WriteLine("fail to acquire permission!");
+            //    ret = rb.AcqPermission();
+            //    Thread.Sleep(1000);
             //}
+            //Console.WriteLine("Success Acquire Permission");
 
-            //rb.RelPermission();
-            //rb.Close();
 
+            //var curpos = rb.MarkMT();
+            //Console.WriteLine($"curpos : {curpos}");
+            jog = new Jog();
+            this.Closed += (s, e) =>
+            {
+                // Dispose of the jog object when the window is closed
+                jog.Dispose();
+            };
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        //private async void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //var curpos = rb.MarkMT();
+        //    //Console.WriteLine($"curpos0 : {curpos[0]}");
+        //    //Console.WriteLine($"curpos0 : {curpos[1]}");
+
+        //    //// rb.JntMove(9, 0, 0, 0, 0, 0, 10, 0.4, 0.4);
+        //    //// rb.CpMove(0, 0, -10, 0, 0, 0, 0, 0, 10, 0.4, 0.4);
+        //    //rb.CpMove((double)curpos[1], (double)curpos[2], (double)curpos[3] + 2, (double)curpos[4],
+        //    //         (double)curpos[5], (double)curpos[6], 6, 1, 10, 0.4, 0.4);
+
+        //    jog.JogZNegative();
+        //    await Task.Delay(2000);
+        //    jog.StopJog();
+        //    jog.GetPosition();
+        //}
+
+        // Rz
+        private async void RzPositive_Click(object sender, RoutedEventArgs e)
         {
-            //if rb.jntmove(45, 0, 0, 0, 0, 0, 5, 1.0, 1.0)[0] != True:
-            //var result = rb.JntMove(5, 0, 0, 0, 0, 0, 5, 1.0, 1.0);
+            jog.JogRzPositive();
+            await Task.Delay(2000);
+            jog.StopJog();
+
         }
+
+        private async void RzNegative_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogRzNegative();
+            await Task.Delay(2000);
+            jog.StopJog();
+
+        }
+
+        // Ry
+        private async void RyPositive_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogRyPositive();
+            await Task.Delay(2000);
+            jog.StopJog();
+
+        }
+
+        private async void RyNegative_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogRyNegative();
+            await Task.Delay(2000);
+            jog.StopJog();
+        }
+
+        // Rx
+        private async void RxPositive_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogRxPositive();
+            await Task.Delay(2000);
+            jog.StopJog();
+        }
+        private async void RxNegative_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogRxNegative();
+            await Task.Delay(2000);
+            jog.StopJog();
+        }
+
+        // Z
+        private async void ZPositive_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogZPositive();
+            await Task.Delay(2000);
+            jog.StopJog();
+        }
+
+        private async void ZNegative_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogZNegative();
+            await Task.Delay(2000);
+            jog.StopJog();
+        }
+
+        // Y
+        private async void YPositive_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogYPositive();
+            await Task.Delay(2000);
+            jog.StopJog();
+        }
+
+        private async void YNegative_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogYNegative();
+            await Task.Delay(2000);
+            jog.StopJog();
+        }
+
+        // X
+        private async void XPositive_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogXPositive();
+            await Task.Delay(2000);
+            jog.StopJog();
+        }
+        private async void XNegative_Click(object sender, RoutedEventArgs e)
+        {
+            jog.JogXNegative();
+            await Task.Delay(2000);
+            jog.StopJog();
+        }
+
     }
 }
