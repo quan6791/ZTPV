@@ -124,16 +124,16 @@
 
                 <ContentControl Grid.Row="0"
                                 x:Name="TeachingLeftUpContent">
-                    <!--<d:ContentControl.Content>
+                    <d:ContentControl.Content>
                         <local:SelectionControlView />
-                    </d:ContentControl.Content>-->
+                    </d:ContentControl.Content>
 
                 </ContentControl>
                 <ContentControl Grid.Row="1"
                                 x:Name="TeachingLeftDownContent">
-                    <!--<d:ContentControl.Content>
+                    <d:ContentControl.Content>
                         <local:IOControlView />
-                    </d:ContentControl.Content>-->
+                    </d:ContentControl.Content>
                 </ContentControl>
             </Grid>
         </Border>
@@ -146,9 +146,9 @@
             </Grid.RowDefinitions>
             <ContentControl Grid.Row="0"
                             x:Name="TeachingRightUpContent">
-                <!--<d:ContentControl.Content>
+                <d:ContentControl.Content>
                     <local:ParamsControlView />
-                </d:ContentControl.Content>-->
+                </d:ContentControl.Content>
 
             </ContentControl>
 
@@ -156,9 +156,9 @@
             <ContentControl Grid.Row="1"
                             x:Name="TeachingRightDownContent">
 
-                <!--<d:ContentControl.Content>
+                <d:ContentControl.Content>
                     <local:MotionControlView />
-                </d:ContentControl.Content>-->
+                </d:ContentControl.Content>
             </ContentControl>
 
         </Grid>

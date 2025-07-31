@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{801FC96D-6EE0-40A1-BC6E-293DEB3EA9AA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ZeusTPV</RootNamespace>
+    <AssemblyName>ZeusTPV</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MaterialDesignColors, Version=5.2.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.5.2.1\lib\net462\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=5.2.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.5.2.1\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.7\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.9.0.7\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.9.0.7\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.9.0.7\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Jog.cs" />
+    <Compile Include="rblib3.cs" />
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeachingView.xaml.cs">
+      <DependentUpon>TeachingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeachingViews\IOControlView.xaml.cs">
+      <DependentUpon>IOControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeachingViews\MotionControlView.xaml.cs">
+      <DependentUpon>MotionControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeachingViews\ParamsControlView.xaml.cs">
+      <DependentUpon>ParamsControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeachingViews\SelectionControlView.xaml.cs">
+      <DependentUpon>SelectionControlView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingViews\IOControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingViews\MotionControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingViews\ParamsControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingViews\SelectionControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="image\dd.qrc" />
+    <None Include="image\Etc\XYZ image.pptx" />
+    <None Include="image\Teaching.qrc" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\Button_general\button_checkBox_off.png" />
+    <Resource Include="image\Button_general\button_checkBox_on.png" />
+    <Resource Include="image\Button_general\button_radio_off.png" />
+    <Resource Include="image\Button_general\button_radio_on.png" />
+    <Resource Include="image\Button_general\button_scroll_down.png" />
+    <Resource Include="image\Button_general\button_scroll_down_click.png" />
+    <Resource Include="image\Button_general\button_scroll_left.png" />
+    <Resource Include="image\Button_general\button_scroll_left_click.png" />
+    <Resource Include="image\Button_general\button_scroll_right.png" />
+    <Resource Include="image\Button_general\button_scroll_right_click.png" />
+    <Resource Include="image\Button_general\button_scroll_up.png" />
+    <Resource Include="image\Button_general\button_scroll_up_click.png" />
+    <Resource Include="image\Button_general\button_slider.png" />
+    <Resource Include="image\Button_general\button_slider_click.png" />
+    <Resource Include="image\Button_general\button_status_big_off.png" />
+    <Resource Include="image\Button_general\button_status_big_on.png" />
+    <Resource Include="image\Button_general\button_teaching_out_down.png" />
+    <Resource Include="image\Button_general\button_teaching_out_down_click.png" />
+    <Resource Include="image\Button_general\button_teaching_out_up.png" />
+    <Resource Include="image\Button_general\button_teaching_out_up_click.png" />
+    <Resource Include="image\Button_general\button_toggle_big_off.png" />
+    <Resource Include="image\Button_general\button_toggle_big_on.png" />
+    <Resource Include="image\Button_general\button_toggle_off.png" />
+    <Resource Include="image\Button_general\button_toggle_on.png" />
+    <Resource Include="image\Button_icon\button_icon_big_encoderReset.png" />
+    <Resource Include="image\Button_icon\button_icon_big_encoderReset_click.png" />
+    <Resource Include="image\Button_icon\button_icon_big_handAlignment.png" />
+    <Resource Include="image\Button_icon\button_icon_big_handAlignment_click.png" />
+    <Resource Include="image\Button_icon\button_icon_big_homePostion.png" />
+    <Resource Include="image\Button_icon\button_icon_big_homePostion_click.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_help.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_help_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_help_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_login.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_login.sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_login_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_logout.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_logout_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_power.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_power_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_power_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_home_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_setting.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_setting_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_setting_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_IO.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_IO_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_IO_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_jog.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_jog_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_jog_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_lock.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_lock_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_lock_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_viewer.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_viewer_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_teaching_viewer_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_vision.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_vision_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_vision_qralign.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_vision_qralign_disable.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_vision_qralign_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_menu_vision_sel.png" />
+    <Resource Include="image\Button_icon\button_icon_small_back.png" />
+    <Resource Include="image\Button_icon\button_icon_small_back_click.png" />
+    <Resource Include="image\Button_icon\button_icon_small_cycle.png" />
+    <Resource Include="image\Button_icon\button_icon_small_cycle_click.png" />
+    <Resource Include="image\Button_icon\button_icon_small_moveToTarget.png" />
+    <Resource Include="image\Button_icon\button_icon_small_moveToTarget_click.png" />
+    <Resource Include="image\Button_icon\button_icon_small_step.png" />
+    <Resource Include="image\Button_icon\button_icon_small_step_click.png" />
+    <Resource Include="image\Button_icon\button_tab_vertical_pitch_off.png" />
+    <Resource Include="image\Button_icon\button_tab_vertical_pitch_on.png" />
+    <Resource Include="image\Button_icon\button_tab_vertical_speed_off.png" />
+    <Resource Include="image\Button_icon\button_tab_vertical_speed_on.png" />
+    <Resource Include="image\Dial\DialRZBtn.png" />
+    <Resource Include="image\Dial\DialRZClickBtn.png" />
+    <Resource Include="image\Dial\DialZBtn.png" />
+    <Resource Include="image\Dial\DialZClickBtn.png" />
+    <Resource Include="image\Etc\20200904_113749.png" />
+    <Resource Include="image\Etc\20200904_113749_white.png" />
+    <Resource Include="image\Etc\20200909_140109.png" />
+    <Resource Include="image\Etc\20200909_141925.png" />
+    <Resource Include="image\Etc\20200909_143554.png" />
+    <Resource Include="image\Etc\20200909_144139.png" />
+    <Resource Include="image\Etc\20200909_144813.png" />
+    <Resource Include="image\Etc\20200909_145032.png" />
+    <Resource Include="image\Etc\6Axis_on.png" />
+    <Resource Include="image\Etc\6ways.png" />
+    <Resource Include="image\Etc\angle.png" />
+    <Resource Include="image\Etc\arrow-Rz.png" />
+    <Resource Include="image\Etc\arrow.png" />
+    <Resource Include="image\Etc\arrow_X.png" />
+    <Resource Include="image\Etc\arrow_Y.png" />
+    <Resource Include="image\Etc\arrow_Z.png" />
+    <Resource Include="image\Etc\arrow_Z2.png" />
+    <Resource Include="image\Etc\base.ico" />
+    <Resource Include="image\Etc\bg.PNG" />
+    <Resource Include="image\Etc\Blackloading.gif" />
+    <Resource Include="image\Etc\blck.PNG" />
+    <Resource Include="image\Etc\button-1428090_960_720 %281%29.png" />
+    <Resource Include="image\Etc\cpp.png" />
+    <Resource Include="image\Etc\csharp.png" />
+    <Resource Include="image\Etc\del.png" />
+    <Resource Include="image\Etc\del_red.png" />
+    <Resource Include="image\Etc\Error.png" />
+    <Resource Include="image\Etc\Error_on.png" />
+    <Resource Include="image\Etc\hex1.png" />
+    <Resource Include="image\Etc\hexr1.png" />
+    <Resource Include="image\Etc\hexr2.png" />
+    <Resource Include="image\Etc\icon.ico" />
+    <Resource Include="image\Etc\io.ico" />
+    <Resource Include="image\Etc\Jnt.png" />
+    <Resource Include="image\Etc\lock.ico" />
+    <Resource Include="image\Etc\login.ico" />
+    <Resource Include="image\Etc\monitor.png" />
+    <Resource Include="image\Etc\monitor_on.png" />
+    <Resource Include="image\Etc\motionview.png" />
+    <Resource Include="image\Etc\pythonicon.png" />
+    <Resource Include="image\Etc\QRcode.png" />
+    <Resource Include="image\Etc\run.ico" />
+    <Resource Include="image\Etc\Rx-jog.png" />
+    <Resource Include="image\Etc\RxRyRz-jog.png" />
+    <Resource Include="image\Etc\Ry-jog.png" />
+    <Resource Include="image\Etc\Rz-axis.png" />
+    <Resource Include="image\Etc\Rz-jog.png" />
+    <Resource Include="image\Etc\Socket.png" />
+    <Resource Include="image\Etc\Socket_on.png" />
+    <Resource Include="image\Etc\spdCtrlBtn.png" />
+    <Resource Include="image\Etc\spdCtrlClickedBtn.png" />
+    <Resource Include="image\Etc\teaching.ico" />
+    <Resource Include="image\Etc\teaching2.ico" />
+    <Resource Include="image\Etc\user_84308.png" />
+    <Resource Include="image\Etc\viewer.ico" />
+    <Resource Include="image\Etc\Xm2x.png" />
+    <Resource Include="image\Etc\Xp2x.png" />
+    <Resource Include="image\Etc\XY-axis.png" />
+    <Resource Include="image\Etc\XY-axis2.png" />
+    <Resource Include="image\Etc\XY-jog.png" />
+    <Resource Include="image\Etc\xy.png" />
+    <Resource Include="image\Etc\X_Minus_OFF.png" />
+    <Resource Include="image\Etc\X_Minus_ON.png" />
+    <Resource Include="image\Etc\X_Plus_OFF.png" />
+    <Resource Include="image\Etc\X_Plus_ON.png" />
+    <Resource Include="image\Etc\Yminus2x.png" />
+    <Resource Include="image\Etc\Yplus2x.png" />
+    <Resource Include="image\Etc\Y_Minus_OFF.png" />
+    <Resource Include="image\Etc\Y_Minus_ON.png" />
+    <Resource Include="image\Etc\Y_Plus_OFF.png" />
+    <Resource Include="image\Etc\Y_Plus_ON.png" />
+    <Resource Include="image\Etc\Z-axis.png" />
+    <Resource Include="image\Etc\Z-jog.png" />
+    <Resource Include="image\Etc\Zminus2x.png" />
+    <Resource Include="image\Etc\Zplus2x.png" />
+    <Resource Include="image\Etc\Z_Minus_OFF.png" />
+    <Resource Include="image\Etc\Z_Minus_ON.png" />
+    <Resource Include="image\Etc\Z_Plus_OFF.png" />
+    <Resource Include="image\Etc\Z_Plus_ON.png" />
+    <Resource Include="image\Help\help_01.png" />
+    <Resource Include="image\Help\help_02.png" />
+    <Resource Include="image\Help\help_03.png" />
+    <Resource Include="image\Help\help_04.png" />
+    <Resource Include="image\Help\help_05.png" />
+    <Resource Include="image\Help\help_06.png" />
+    <Resource Include="image\Help\help_07.png" />
+    <Resource Include="image\Help\help_08.png" />
+    <Resource Include="image\Help\help_09.png" />
+    <Resource Include="image\Help\help_10.png" />
+    <Resource Include="image\Help\help_11.png" />
+    <Resource Include="image\Help\help_12.png" />
+    <Resource Include="image\Help\help_13.png" />
+    <Resource Include="image\Help\help_14.png" />
+    <Resource Include="image\Help\help_15.png" />
+    <Resource Include="image\Help\help_16.png" />
+    <Resource Include="image\Help\help_17.png" />
+    <Resource Include="image\Help\help_18.png" />
+    <Resource Include="image\Help\help_19.png" />
+    <Resource Include="image\Help\help_20.png" />
+    <Resource Include="image\Help\help_21.png" />
+    <Resource Include="image\Help\help_22.png" />
+    <Resource Include="image\IO\AIO_img.png" />
+    <Resource Include="image\IO\DAX_DIO_img.png" />
+    <Resource Include="image\IO\DIO_img.PNG" />
+    <Resource Include="image\IO\IO_Off.png" />
+    <Resource Include="image\IO\IO_On.png" />
+    <Resource Include="image\IO\IO_tch_Off.png" />
+    <Resource Include="image\IO\IO_tch_Off_Pressed.png" />
+    <Resource Include="image\IO\IO_tch_On.png" />
+    <Resource Include="image\IO\IO_tch_On_Pressed.png" />
+    <Resource Include="image\IO\IO_Toggle_Off.png" />
+    <Resource Include="image\IO\IO_Toggle_Off_Pressed.png" />
+    <Resource Include="image\IO\IO_Toggle_On.png" />
+    <Resource Include="image\IO\IO_Toggle_On_Pressed.png" />
+    <Resource Include="image\Joint\delta.png" />
+    <Resource Include="image\Joint\Jnt.png" />
+    <Resource Include="image\Joint\Joint1.png" />
+    <Resource Include="image\Joint\Joint2.png" />
+    <Resource Include="image\Joint\Joint3.png" />
+    <Resource Include="image\Joint\Joint_6AXIS.png" />
+    <Resource Include="image\Joint\Joint_DAX.png" />
+    <Resource Include="image\Joint\Joint_DELTA.png" />
+    <Resource Include="image\Joint\Joint_SCARA.png" />
+    <Resource Include="image\Joint\Joint_SDC.png" />
+    <Resource Include="image\Joint\Joint_SEC.png" />
+    <Resource Include="image\Joint\scara.png" />
+    <Resource Include="image\Joint\scaraJ.png" />
+    <Resource Include="image\Main\Cartesian.jpg" />
+    <Resource Include="image\Main\Cartesian.png" />
+    <Resource Include="image\Main\DAX.png" />
+    <Resource Include="image\Main\Delta.jpg" />
+    <Resource Include="image\Main\Delta.png" />
+    <Resource Include="image\Main\DownBtn.png" />
+    <Resource Include="image\Main\DownClickBtn.png" />
+    <Resource Include="image\Main\home.png" />
+    <Resource Include="image\Main\home_loading.png" />
+    <Resource Include="image\Main\logo.png" />
+    <Resource Include="image\Main\menubar.png" />
+    <Resource Include="image\Main\Monitoring.png" />
+    <Resource Include="image\Main\program.png" />
+    <Resource Include="image\Main\Scara.jpg" />
+    <Resource Include="image\Main\Scara.png" />
+    <Resource Include="image\Main\SDC.jpg" />
+    <Resource Include="image\Main\SDC.png" />
+    <Resource Include="image\Main\SEC.png" />
+    <Resource Include="image\Main\Setting.png" />
+    <Resource Include="image\Main\SlideBtn.png" />
+    <Resource Include="image\Main\SlideBtn1.png" />
+    <Resource Include="image\Main\SlideClickBtn.png" />
+    <Resource Include="image\Main\SlideClickBtn1.png" />
+    <Resource Include="image\Main\spdCtrlBtn.png" />
+    <Resource Include="image\Main\spdCtrlClickedBtn.png" />
+    <Resource Include="image\Main\teaching.png" />
+    <Resource Include="image\Main\TP_GUI_BG.png" />
+    <Resource Include="image\Main\UpBtn.png" />
+    <Resource Include="image\Main\UpClickBtn.png" />
+    <Resource Include="image\Main\Zero.jpg" />
+    <Resource Include="image\Main\Zero.png" />
+    <Resource Include="image\QCheckBox\QCheckBox_checked.png" />
+    <Resource Include="image\QCheckBox\QCheckBox_checked_hover.png" />
+    <Resource Include="image\QCheckBox\QCheckBox_checked_pressed.png" />
+    <Resource Include="image\QCheckBox\QCheckBox_unchecked.png" />
+    <Resource Include="image\QCheckBox\QCheckBox_unchecked_hover.png" />
+    <Resource Include="image\QCheckBox\QCheckBox_unchecked_pressed.png" />
+    <Resource Include="image\QRadioButton\QRadiobutton_checked.png" />
+    <Resource Include="image\QRadioButton\QRadiobutton_unchecked.png" />
+    <Resource Include="image\Sub\base.ico" />
+    <Resource Include="image\Sub\help.png" />
+    <Resource Include="image\Sub\io.ico" />
+    <Resource Include="image\Sub\jog.png" />
+    <Resource Include="image\Sub\login.png" />
+    <Resource Include="image\Sub\Logout.png" />
+    <Resource Include="image\Sub\power.ico" />
+    <Resource Include="image\Sub\run.ico" />
+    <Resource Include="image\Sub\viewer.ico" />
+    <Resource Include="image\XYZ\AUX1m.png" />
+    <Resource Include="image\XYZ\AUX1mClick.png" />
+    <Resource Include="image\XYZ\AUX1mDisable.png" />
+    <Resource Include="image\XYZ\AUX1p.png" />
+    <Resource Include="image\XYZ\AUX1pClick.png" />
+    <Resource Include="image\XYZ\AUX1pDisable.png" />
+    <Resource Include="image\XYZ\AUX2m.png" />
+    <Resource Include="image\XYZ\AUX2mClick.png" />
+    <Resource Include="image\XYZ\AUX2mDisable.png" />
+    <Resource Include="image\XYZ\AUX2p.png" />
+    <Resource Include="image\XYZ\AUX2pClick.png" />
+    <Resource Include="image\XYZ\AUX2pDisable.png" />
+    <Resource Include="image\XYZ\AUX3m.png" />
+    <Resource Include="image\XYZ\AUX3mClick.png" />
+    <Resource Include="image\XYZ\AUX3mDisable.png" />
+    <Resource Include="image\XYZ\AUX3p.png" />
+    <Resource Include="image\XYZ\AUX3pClick.png" />
+    <Resource Include="image\XYZ\AUX3pDisable.png" />
+    <Resource Include="image\XYZ\AUX4m.png" />
+    <Resource Include="image\XYZ\AUX4mClick.png" />
+    <Resource Include="image\XYZ\AUX4mDisable.png" />
+    <Resource Include="image\XYZ\AUX4p.png" />
+    <Resource Include="image\XYZ\AUX4pClick.png" />
+    <Resource Include="image\XYZ\AUX4pDisable.png" />
+    <Resource Include="image\XYZ\GrayMinusBtn.png" />
+    <Resource Include="image\XYZ\GrayPlusBtn.png" />
+    <Resource Include="image\XYZ\GrayRxBG.png" />
+    <Resource Include="image\XYZ\GrayRyBG.png" />
+    <Resource Include="image\XYZ\GrayRzBG.png" />
+    <Resource Include="image\XYZ\MinusBtn.png" />
+    <Resource Include="image\XYZ\MinusClickBtn.png" />
+    <Resource Include="image\XYZ\PlusBtn.png" />
+    <Resource Include="image\XYZ\PlusClickBtn.png" />
+    <Resource Include="image\XYZ\RxBackgrnd.png" />
+    <Resource Include="image\XYZ\RxBackgrnd_orig.png" />
+    <Resource Include="image\XYZ\RxmBtn.png" />
+    <Resource Include="image\XYZ\RxmBtnClick.png" />
+    <Resource Include="image\XYZ\RxpBtn.png" />
+    <Resource Include="image\XYZ\RxpBtnClick.png" />
+    <Resource Include="image\XYZ\RyBackgrnd.png" />
+    <Resource Include="image\XYZ\RyBackgrnd_orig.png" />
+    <Resource Include="image\XYZ\RymBtn.png" />
+    <Resource Include="image\XYZ\RymBtnClick.png" />
+    <Resource Include="image\XYZ\RypBtn.png" />
+    <Resource Include="image\XYZ\RypBtnClick.png" />
+    <Resource Include="image\XYZ\RzBackgrnd.png" />
+    <Resource Include="image\XYZ\RzBackgrnd_orig.png" />
+    <Resource Include="image\XYZ\RzmBtn.png" />
+    <Resource Include="image\XYZ\RzmBtnClick.png" />
+    <Resource Include="image\XYZ\RzpBtn.png" />
+    <Resource Include="image\XYZ\RzpBtnClick.png" />
+    <Resource Include="image\XYZ\Xm.png" />
+    <Resource Include="image\XYZ\XmClick.png" />
+    <Resource Include="image\XYZ\XmDisable.png" />
+    <Resource Include="image\XYZ\Xp.png" />
+    <Resource Include="image\XYZ\XpClick.png" />
+    <Resource Include="image\XYZ\XpDisable.png" />
+    <Resource Include="image\XYZ\Ym.png" />
+    <Resource Include="image\XYZ\YmClick.png" />
+    <Resource Include="image\XYZ\YmDisable.png" />
+    <Resource Include="image\XYZ\Yp.png" />
+    <Resource Include="image\XYZ\YpClick.png" />
+    <Resource Include="image\XYZ\YpDisable.png" />
+    <Resource Include="image\XYZ\Zm.png" />
+    <Resource Include="image\XYZ\ZmClick.png" />
+    <Resource Include="image\XYZ\ZmDisable.png" />
+    <Resource Include="image\XYZ\Zp.png" />
+    <Resource Include="image\XYZ\ZpClick.png" />
+    <Resource Include="image\XYZ\ZpDisable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Converters\" />
+    <Folder Include="Themes\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets'))" />
+  </Target>
+</Project>

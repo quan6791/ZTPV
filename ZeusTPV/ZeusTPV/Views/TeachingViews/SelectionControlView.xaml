@@ -69,7 +69,8 @@
                        Padding="10" />
         </Grid>
         <StackPanel Grid.Row="1">
-            <ListBox Background="#eee"
+            <ListBox x:Name="lbx_Files"
+                     Background="#eee"
                      Margin="10,10,10,0">
                 <ListBoxItem Content="01. __init__" />
                 <ListBoxItem Content="02. calib_teach" />

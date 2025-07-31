@@ -6,6 +6,11 @@ namespace ZeusTPV.Views
 {
     public partial class TeachingView : UserControl
     {
+        private SelectionControlView _selectionControlView;
+        private IOControlView _ioControlView;
+        private ParamsControlView _paramsControlView;
+        private MotionControlView _motionControlView;
+
         public TeachingView()
         {
             InitializeComponent();
@@ -13,7 +18,6 @@ namespace ZeusTPV.Views
             // Chỉ load content khi không phải design time
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
-                //_jog = new Jog();
                 LoadContent();
             }
 
@@ -24,10 +28,10 @@ namespace ZeusTPV.Views
             try
             {
                 // Load các UserControl chỉ khi runtime
-                TeachingLeftUpContent.Content = new SelectionControlView();
-                TeachingLeftDownContent.Content = new IOControlView();
-                TeachingRightUpContent.Content = new ParamsControlView();
-                TeachingRightDownContent.Content = new MotionControlView();
+                TeachingLeftUpContent.Content = _selectionControlView ?? new SelectionControlView();
+                TeachingLeftDownContent.Content = _ioControlView ?? new IOControlView();
+                TeachingRightUpContent.Content = _paramsControlView ?? new ParamsControlView();
+                TeachingRightDownContent.Content = _motionControlView ?? new MotionControlView();
             }
             catch (Exception ex)
             {

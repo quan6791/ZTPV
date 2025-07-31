@@ -15,6 +15,11 @@ namespace ZeusTPV
             InitializeComponent();
             _teachingView = new TeachingView();
             MainContent.Content = _teachingView;
+            this.Closed += (s, e) =>
+            {
+                Jog.Instance.StopJog();
+                Jog.Instance.Dispose();
+            };
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
