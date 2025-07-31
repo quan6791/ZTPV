@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Teaching Pendant"
         Height="800"
-        Width="1400"
+        Width="1280"
         Background="#F6FCFF">
     <Window.Resources>
         <ResourceDictionary>
@@ -19,92 +19,11 @@
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-
-            <!-- Custom Button Style Template -->
-            <Style x:Key="ImageButtonStyle"
-                   TargetType="Button">
-                <Setter Property="Background"
-                        Value="Transparent" />
-                <Setter Property="BorderThickness"
-                        Value="0" />
-                <Setter Property="Padding"
-                        Value="0" />
-                <Setter Property="Cursor"
-                        Value="Hand" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    x:Name="border">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"
-                                                  x:Name="contentPresenter">
-                                    <ContentPresenter.RenderTransform>
-                                        <ScaleTransform x:Name="scaleTransform"
-                                                        ScaleX="1"
-                                                        ScaleY="1" />
-                                    </ContentPresenter.RenderTransform>
-                                    <ContentPresenter.RenderTransformOrigin>
-                                        <Point X="0.5"
-                                               Y="0.5" />
-                                    </ContentPresenter.RenderTransformOrigin>
-                                </ContentPresenter>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver"
-                                         Value="True">
-                                    <Setter TargetName="border"
-                                            Property="Background"
-                                            Value="Transparent" />
-                                </Trigger>
-                                <Trigger Property="IsPressed"
-                                         Value="True">
-                                    <Setter TargetName="border"
-                                            Property="Background"
-                                            Value="Transparent" />
-                                    <Trigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                                                 Storyboard.TargetProperty="ScaleX"
-                                                                 To="1.1"
-                                                                 Duration="0:0:0.1" />
-                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                                                 Storyboard.TargetProperty="ScaleY"
-                                                                 To="1.1"
-                                                                 Duration="0:0:0.1" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.EnterActions>
-                                    <Trigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                                                 Storyboard.TargetProperty="ScaleX"
-                                                                 To="1.0"
-                                                                 Duration="0:0:0.1" />
-                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
-                                                                 Storyboard.TargetProperty="ScaleY"
-                                                                 To="1.0"
-                                                                 Duration="0:0:0.1" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.ExitActions>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
         </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
-        <!-- Left Sidebar -->
+        <!-- LEFT SIDEBAR-->
         <Grid Background="#3A7CC1"
               Width="120"
               HorizontalAlignment="Left">
@@ -113,20 +32,23 @@
                         Margin="10,0,10,10"
                         Background="White"
                         HorizontalContentAlignment="Center"
-                        BorderThickness="0">
+                        BorderThickness="0"
+                        Click="HomeButton_Click">
                     <StackPanel Orientation="Vertical">
                         <Image Source="/image/Button_icon/button_icon_menu_home.png"
                                Height="32"
                                Width="32" />
                         <TextBlock Text="Home"
+                                   Foreground="Black"
                                    FontWeight="Bold"
-                                   VerticalAlignment="Center" />
+                                   TextAlignment="Center" />
                     </StackPanel>
                 </Button>
                 <Button Height="60"
                         Margin="10,0,10,10"
                         Background="#1E90FF"
-                        BorderThickness="0">
+                        BorderThickness="0"
+                        Click="TeachingButton_Click">
                     <StackPanel Orientation="Vertical"
                                 HorizontalAlignment="Left">
                         <Image Source="/image/Button_icon/button_icon_menu_teaching.png"
@@ -135,7 +57,7 @@
                         <TextBlock Text="Teaching"
                                    FontWeight="Bold"
                                    Foreground="White"
-                                   VerticalAlignment="Center" />
+                                   TextAlignment="Center" />
                     </StackPanel>
                 </Button>
                 <Button Height="60"
@@ -147,8 +69,9 @@
                                Height="32"
                                Width="32" />
                         <TextBlock Text="Setting"
+                                   Foreground="Black"
                                    FontWeight="Bold"
-                                   VerticalAlignment="Center" />
+                                   TextAlignment="Center" />
                     </StackPanel>
                 </Button>
                 <Button Height="60"
@@ -160,8 +83,9 @@
                                Height="32"
                                Width="32" />
                         <TextBlock Text="Jog"
+                                   Foreground="Black"
                                    FontWeight="Bold"
-                                   VerticalAlignment="Center" />
+                                   TextAlignment="Center" />
                     </StackPanel>
                 </Button>
                 <Button Height="60"
@@ -173,8 +97,9 @@
                                Height="32"
                                Width="32" />
                         <TextBlock Text="IO"
+                                   Foreground="Black"
                                    FontWeight="Bold"
-                                   VerticalAlignment="Center" />
+                                   TextAlignment="Center" />
                     </StackPanel>
                 </Button>
                 <Button Height="60"
@@ -186,13 +111,14 @@
                                Height="32"
                                Width="32" />
                         <TextBlock Text="Viewer"
+                                   Foreground="Black"
                                    FontWeight="Bold"
-                                   VerticalAlignment="Center" />
+                                   TextAlignment="Center" />
                     </StackPanel>
                 </Button>
             </StackPanel>
         </Grid>
-        <!-- Top Bar -->
+        <!-- TOP BAR -->
         <Grid Height="60"
               VerticalAlignment="Top"
               Margin="120,0,0,0"
@@ -202,10 +128,9 @@
                 <ColumnDefinition Width="300" />
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"
-                     Margin="10,10,10,10"
-                     Height="40"
-                     FontSize="18" />
+            <Border Grid.Column="0"
+                    Margin="10,10,10,10"
+                    Height="40" />
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal"
                         HorizontalAlignment="Right"
@@ -239,386 +164,13 @@
                    HorizontalAlignment="Right"
                    Margin="0,0,10,0" />
         </Grid>
-        <!-- Main Content -->
+        <!-- MAIN CONTENT -->
         <Grid Margin="120,60,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="450" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <!-- File Select Panel -->
-            <Border Grid.Row="2"
-                    Background="#FFF"
-                    BorderBrush="#B3D1F7"
-                    BorderThickness="2"
-                    CornerRadius="10"
-                    Margin="10">
-                <Grid Grid.Column="0"
-                      Background="#F6FCFF"
-                      Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Button Grid.Column="0"
-                                Grid.Row="0"
-                                Content="File Select"
-                                Background="#3A7CC1"
-                                Foreground="White"
-                                FontWeight="Bold"
-                                FontSize="16"
-                                Height="40" />
-                        <Button Grid.Column="0"
-                                Grid.Row="1"
-                                Content="Pos Select"
-                                Background="#E6E6E6"
-                                Foreground="#888"
-                                FontWeight="Bold"
-                                FontSize="16"
-                                Height="40"
-                                IsEnabled="False" />
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="1"
-                                   Text="calib_teach"
-                                   FontWeight="Bold"
-                                   Padding="10"
-                                   FontSize="18" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="1"
-                                   Text="Position Data Name"
-                                   FontWeight="Bold"
-                                   FontSize="18"
-                                   Padding="10" />
-                    </Grid>
-                    <StackPanel Grid.Row="1">
-                        <ListBox MinHeight="300"
-                                 Background="#eee"
-                                 Margin="10,10,10,0">
-                            <ListBoxItem Content="01. __init__" />
-                            <ListBoxItem Content="02. calib_teach" />
-                            <ListBoxItem Content="03. init" />
-                            <ListBoxItem Content="04. init_util" />
-                            <ListBoxItem Content="05. io_test" />
-                            <ListBoxItem Content="06. main" />
-                            <ListBoxItem Content="07. network" />
-                            <ListBoxItem Content="08. network_Test_client" />
-                            <ListBoxItem Content="09. siltest" />
-                            <ListBoxItem Content="10. tp_1" />
-                            <ListBoxItem Content="11. twim_test" />
-                        </ListBox>
-                        <Button Content="OK"
-                                Height="40"
-                                Margin="10,10,10,0" />
-                    </StackPanel>
-                    <StackPanel Grid.Row="2">
-                        <UniformGrid Columns="4"
-                                     Rows="2"
-                                     Margin="10,10,10,0">
-                            <CheckBox Content="OUT 1" />
-                            <CheckBox Content="OUT 2" />
-                            <CheckBox Content="OUT 3" />
-                            <CheckBox Content="OUT 4" />
-                            <CheckBox Content="OUT 5" />
-                            <CheckBox Content="OUT 6" />
-                            <CheckBox Content="OUT 7" />
-                            <CheckBox Content="OUT 8" />
-                        </UniformGrid>
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Right"
-                                    Margin="0,10,10,0">
-                            <Button Width="40"
-                                    Height="40"
-                                    Padding="0">
-                                <materialDesign:PackIcon Kind="TriangleDown"
-                                                         Width="24"
-                                                         Height="24">
-                                    <materialDesign:PackIcon.RenderTransform>
-                                        <RotateTransform Angle="180"
-                                                         CenterX="12"
-                                                         CenterY="12" />
-                                    </materialDesign:PackIcon.RenderTransform>
-                                </materialDesign:PackIcon>
-                            </Button>
-                            <Button Width="40"
-                                    Height="40"
-                                    Padding="0">
-                                <materialDesign:PackIcon Kind="TriangleDown"
-                                                         Width="24"
-                                                         Height="24">
-                                </materialDesign:PackIcon>
-                            </Button>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-            </Border>
-            <!-- Right Panel -->
-            <Grid Grid.Column="1"
-                  Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0"
-                            Orientation="Horizontal"
-                            Margin="0,0,0,10">
-                    <Button Content="Speed"
-                            Background="#E6E6E6"
-                            Foreground="#888"
-                            FontWeight="Bold"
-                            Width="70"
-                            Height="30" />
-                    <Button Content="Pitch"
-                            Background="#3A7CC1"
-                            Foreground="White"
-                            FontWeight="Bold"
-                            Width="70"
-                            Height="30" />
-                    <TextBox Text="40"
-                             Width="50"
-                             Height="30"
-                             Margin="10,0,0,0"
-                             FontSize="16" />
-                    <Slider Width="400"
-                            Height="30"
-                            Margin="10,0,0,0" />
-                </StackPanel>
-                <StackPanel Grid.Row="1"
-                            Orientation="Horizontal"
-                            Margin="0,0,0,10">
-                    <Button Content="XY"
-                            Background="#3A7CC1"
-                            Foreground="White"
-                            FontWeight="Bold"
-                            Width="70"
-                            Height="30" />
-                    <Button Content="Joint"
-                            Background="#E6E6E6"
-                            Foreground="#888"
-                            FontWeight="Bold"
-                            Width="70"
-                            Height="30" />
-                    <Button Content="MoveTo"
-                            Background="#E6E6E6"
-                            Foreground="#888"
-                            FontWeight="Bold"
-                            Width="70"
-                            Height="30" />
-                    <Button Content="Path Check"
-                            Background="#E6E6E6"
-                            Foreground="#888"
-                            FontWeight="Bold"
-                            Width="100"
-                            Height="30" />
-                </StackPanel>
-                <!-- Placeholder for the graphic controls (arrows, rotation, etc.) -->
-                <Border Grid.Row="2"
-                        Background="#FFF"
-                        BorderBrush="#B3D1F7"
-                        BorderThickness="2"
-                        CornerRadius="10"
-                        Padding="40"
-                        Margin="0,0,0,0">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0"
-                                        HorizontalAlignment="Center">
-                                <Image Source="/image/XYZ/RzBackgrnd.png"
-                                       Width="150"
-                                       Height="150" />
-
-                                <Button Margin="-80,-40, 0, 0"
-                                        Width="40"
-                                        Height="40"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Click="RzPositive_Click">
-                                    <Image Source="/image/XYZ/RzpBtn.png"
-                                           Stretch="Fill"
-                                           Width="40"
-                                           Height="40" />
-                                </Button>
-
-                                <Button Margin="80,-40, 0, 0"
-                                        Width="40"
-                                        Height="40"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Click="RzNegative_Click">
-                                    <Image Source="/image/XYZ/RzmBtn.png"
-                                           Stretch="Fill"
-                                           Width="40"
-                                           Height="40" />
-                                </Button>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="1"
-                                        HorizontalAlignment="Center">
-                                <Image Source="/image/XYZ/RyBackgrnd.png"
-                                       Width="150"
-                                       Height="150" />
-
-                                <Button Margin="-120, -150, 0, 0"
-                                        Width="40"
-                                        Height="40"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Click="RyNegative_Click">
-                                    <Image Source="/image/XYZ/RymBtn.png"
-                                           Stretch="Fill"
-                                           Width="40"
-                                           Height="40" />
-                                </Button>
-
-
-                                <Button Margin="-50, -45, 0, 0"
-                                        Width="40"
-                                        Height="40"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Click="RyPositive_Click">
-                                    <Image Source="/image/XYZ/RypBtn.png"
-                                           Stretch="Fill"
-                                           Width="40"
-                                           Height="40" />
-                                </Button>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="2"
-                                        HorizontalAlignment="Center">
-                                <Image Source="/image/XYZ/RxBackgrnd.png"
-                                       Width="150"
-                                       Height="150" />
-
-                                <Button  Margin="60, -45, 0, 0"
-                                         Width="40"
-                                         Height="40"
-                                         Style="{StaticResource ImageButtonStyle}"
-                                         Click="RxPositive_Click">
-                                    <Image Source="/image/XYZ/RxpBtn.png"
-                                           Stretch="Fill"
-                                           Width="40"
-                                           Height="40" />
-                                </Button>
-
-                                <Button   Margin="120, -160, 0, 0"
-                                          Width="40"
-                                          Height="40"
-                                          Style="{StaticResource ImageButtonStyle}"
-                                          Click="RxNegative_Click">
-                                    <Image Source="/image/XYZ/RxmBtn.png"
-                                           Stretch="Fill"
-                                           Width="40"
-                                           Height="40" />
-                                </Button>
-
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0"
-                                        HorizontalAlignment="Center">
-
-
-                                <Button Width="100"
-                                        Height="100"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Click="ZPositive_Click">
-                                    <Image Source="/image/XYZ/Zp.png"
-                                           Stretch="Fill"
-                                           Width="100"
-                                           Height="100" />
-                                </Button>
-
-
-                                <Button Width="100"
-                                        Height="100"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Margin="0, 20, 0, 0"
-                                        Click="ZNegative_Click">
-                                    <Image Source="/image/XYZ/Zm.png"
-                                           Stretch="Fill"
-                                           Width="100"
-                                           Height="100" />
-                                </Button>
-                            </StackPanel>
-
-
-                            <StackPanel Grid.Column="1"
-                                        HorizontalAlignment="Center">
-
-                                <Button Width="100"
-                                        Height="100"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Click="YPositive_Click">
-                                    <Image Source="/image/XYZ/Yp.png"
-                                           Stretch="Fill"
-                                           Width="100"
-                                           Height="100" />
-                                </Button>
-
-
-
-                                <Button Width="100"
-                                        Height="100"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Margin="0, 20, 0, 0"
-                                        Click="YNegative_Click">
-                                    <Image Source="/image/XYZ/Ym.png"
-                                           Stretch="Fill"
-                                           Width="100"
-                                           Height="100" />
-                                </Button>
-
-
-                                <Button Width="100"
-                                        Height="100"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Margin="-180, -230, 0, 0"
-                                        Click="XNegative_Click">
-                                    <Image Source="/image/XYZ/Xm.png"
-                                           Stretch="Fill"
-                                           Width="100"
-                                           Height="100" />
-                                </Button>
-
-                                <Button Width="100"
-                                        Height="100"
-                                        Style="{StaticResource ImageButtonStyle}"
-                                        Margin="180, -230, 0, 0"
-                                        Click="XPositive_Click">
-                                    <Image Source="/image/XYZ/Xp.png"
-                                           Stretch="Fill"
-                                           Width="100"
-                                           Height="100" />
-                                </Button>
-
-
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
-                </Border>
-            </Grid>
+            <ContentControl Margin="0"
+                            Padding="0"
+                            Width="1140"
+                            Height="700"
+                            x:Name="MainContent" />
         </Grid>
     </Grid>
 </Window>

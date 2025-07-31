@@ -1,0 +1,341 @@
+﻿<UserControl x:Class="ZeusTPV.Views.MotionControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ZeusTPV.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             Width="670"
+             Height="630"
+             Background="#F6FCFF"
+             Margin="0"
+             Padding="0">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light"
+                                             PrimaryColor="DeepPurple"
+                                             SecondaryColor="Lime" />
+
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+            <!-- Custom Button Style Template -->
+            <Style x:Key="ImageButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="Padding"
+                        Value="0" />
+                <Setter Property="Cursor"
+                        Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    x:Name="border">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  x:Name="contentPresenter">
+                                    <ContentPresenter.RenderTransform>
+                                        <ScaleTransform x:Name="scaleTransform"
+                                                        ScaleX="1"
+                                                        ScaleY="1" />
+                                    </ContentPresenter.RenderTransform>
+                                    <ContentPresenter.RenderTransformOrigin>
+                                        <Point X="0.5"
+                                               Y="0.5" />
+                                    </ContentPresenter.RenderTransformOrigin>
+                                </ContentPresenter>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter TargetName="border"
+                                            Property="Background"
+                                            Value="Transparent" />
+                                </Trigger>
+                                <Trigger Property="IsPressed"
+                                         Value="True">
+                                    <Setter TargetName="border"
+                                            Property="Background"
+                                            Value="Transparent" />
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleX"
+                                                                 To="1.1"
+                                                                 Duration="0:0:0.1" />
+                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleY"
+                                                                 To="1.1"
+                                                                 Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleX"
+                                                                 To="1.0"
+                                                                 Duration="0:0:0.1" />
+                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleY"
+                                                                 To="1.0"
+                                                                 Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="600" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    Margin="0">
+            <Button Content="XY"
+                    Background="#3A7CC1"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Width="70"
+                    Height="30" />
+            <Button Content="Joint"
+                    Background="#E6E6E6"
+                    Foreground="#888"
+                    FontWeight="Bold"
+                    Width="70"
+                    Height="30" />
+            <Button Content="MoveTo"
+                    Background="#E6E6E6"
+                    Foreground="#888"
+                    FontWeight="Bold"
+                    Width="70"
+                    Height="30" />
+            <Button Content="Path Check"
+                    Background="#E6E6E6"
+                    Foreground="#888"
+                    FontWeight="Bold"
+                    Width="100"
+                    Height="30" />
+        </StackPanel>
+
+        <Border Grid.Row="1"
+                Background="#FFF"
+                BorderBrush="#B3D1F7"
+                BorderThickness="2"
+                CornerRadius="10"
+                Padding="40"
+                Margin="0,0,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                HorizontalAlignment="Center">
+                        <Image Source="/image/XYZ/RzBackgrnd.png"
+                               Width="150"
+                               Height="150" />
+
+                        <Button Margin="-80,-40, 0, 0"
+                                Width="40"
+                                Height="40"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Click="RzPositive_Click">
+                            <Image Source="/image/XYZ/RzpBtn.png"
+                                   Stretch="Fill"
+                                   Width="40"
+                                   Height="40" />
+                        </Button>
+
+                        <Button Margin="80,-40, 0, 0"
+                                Width="40"
+                                Height="40"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Click="RzNegative_Click">
+                            <Image Source="/image/XYZ/RzmBtn.png"
+                                   Stretch="Fill"
+                                   Width="40"
+                                   Height="40" />
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Center">
+                        <Image Source="/image/XYZ/RyBackgrnd.png"
+                               Width="150"
+                               Height="150" />
+
+                        <Button Margin="-120, -150, 0, 0"
+                                Width="40"
+                                Height="40"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Click="RyNegative_Click">
+                            <Image Source="/image/XYZ/RymBtn.png"
+                                   Stretch="Fill"
+                                   Width="40"
+                                   Height="40" />
+                        </Button>
+
+
+                        <Button Margin="-50, -45, 0, 0"
+                                Width="40"
+                                Height="40"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Click="RyPositive_Click">
+                            <Image Source="/image/XYZ/RypBtn.png"
+                                   Stretch="Fill"
+                                   Width="40"
+                                   Height="40" />
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2"
+                                HorizontalAlignment="Center">
+                        <Image Source="/image/XYZ/RxBackgrnd.png"
+                               Width="150"
+                               Height="150" />
+
+                        <Button  Margin="60, -45, 0, 0"
+                                 Width="40"
+                                 Height="40"
+                                 Style="{StaticResource ImageButtonStyle}"
+                                 Click="RxPositive_Click">
+                            <Image Source="/image/XYZ/RxpBtn.png"
+                                   Stretch="Fill"
+                                   Width="40"
+                                   Height="40" />
+                        </Button>
+
+                        <Button   Margin="120, -160, 0, 0"
+                                  Width="40"
+                                  Height="40"
+                                  Style="{StaticResource ImageButtonStyle}"
+                                  Click="RxNegative_Click">
+                            <Image Source="/image/XYZ/RxmBtn.png"
+                                   Stretch="Fill"
+                                   Width="40"
+                                   Height="40" />
+                        </Button>
+
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0"
+                                HorizontalAlignment="Center">
+
+
+                        <Button Width="100"
+                                Height="100"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Click="ZPositive_Click">
+                            <Image Source="/image/XYZ/Zp.png"
+                                   Stretch="Fill"
+                                   Width="100"
+                                   Height="100" />
+                        </Button>
+
+
+                        <Button Width="100"
+                                Height="100"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Margin="0, 20, 0, 0"
+                                Click="ZNegative_Click">
+                            <Image Source="/image/XYZ/Zm.png"
+                                   Stretch="Fill"
+                                   Width="100"
+                                   Height="100" />
+                        </Button>
+                    </StackPanel>
+
+
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Center">
+
+                        <Button Width="100"
+                                Height="100"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Click="YPositive_Click">
+                            <Image Source="/image/XYZ/Yp.png"
+                                   Stretch="Fill"
+                                   Width="100"
+                                   Height="100" />
+                        </Button>
+
+
+
+                        <Button Width="100"
+                                Height="100"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Margin="0, 20, 0, 0"
+                                Click="YNegative_Click">
+                            <Image Source="/image/XYZ/Ym.png"
+                                   Stretch="Fill"
+                                   Width="100"
+                                   Height="100" />
+                        </Button>
+
+
+                        <Button Width="100"
+                                Height="100"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Margin="-180, -230, 0, 0"
+                                Click="XNegative_Click">
+                            <Image Source="/image/XYZ/Xm.png"
+                                   Stretch="Fill"
+                                   Width="100"
+                                   Height="100" />
+                        </Button>
+
+                        <Button Width="100"
+                                Height="100"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Margin="180, -230, 0, 0"
+                                Click="XPositive_Click">
+                            <Image Source="/image/XYZ/Xp.png"
+                                   Stretch="Fill"
+                                   Width="100"
+                                   Height="100" />
+                        </Button>
+
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

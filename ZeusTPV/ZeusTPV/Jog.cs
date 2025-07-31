@@ -91,6 +91,9 @@ namespace ZeusTPV
         public event Action<object[]> PositionUpdated;
         public event Action<object[]> JointUpdated;
 
+        private static readonly Lazy<Jog> _instance = new Lazy<Jog>(() => new Jog());
+        public static Jog Instance => _instance.Value;
+
         public Jog(string ipAddress = "192.168.0.23", int port = 12345)
         {
             // Initialize robot connection
