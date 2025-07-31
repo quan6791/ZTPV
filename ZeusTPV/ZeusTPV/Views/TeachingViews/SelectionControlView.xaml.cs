@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace ZeusTPV.Views
@@ -8,21 +8,21 @@ namespace ZeusTPV.Views
     /// </summary>
     public partial class SelectionControlView : UserControl
     {
+        private FilesListView _filesListView;
         public SelectionControlView()
         {
             InitializeComponent();
-            this.Loaded += SelectionControlView_Loaded;
+
+            // Chỉ load content khi không phải design time
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                LoadContent();
+            }
         }
 
-        private void SelectionControlView_Loaded(object sender, RoutedEventArgs e)
+        private void LoadContent()
         {
-            ZeroUser.Instance?.Connect();
-            if (this.lbx_Files != null)
-            {
-                this.lbx_Files.ItemsSource = null;
-            }
-            this.lbx_Files.Items.Clear();
-            this.lbx_Files.ItemsSource = ZeroUser.Instance?.FilesList;
+            this.SelectionControlContent.Content = _filesListView ?? new FilesListView();
         }
     }
 }

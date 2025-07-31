@@ -68,25 +68,15 @@
                        FontSize="18"
                        Padding="10" />
         </Grid>
-        <StackPanel Grid.Row="1">
-            <ListBox x:Name="lbx_Files"
-                     Background="#eee"
-                     Margin="10,10,10,0">
-                <ListBoxItem Content="01. __init__" />
-                <ListBoxItem Content="02. calib_teach" />
-                <ListBoxItem Content="03. init" />
-                <ListBoxItem Content="04. init_util" />
-                <ListBoxItem Content="05. io_test" />
-                <ListBoxItem Content="06. main" />
-                <ListBoxItem Content="07. network" />
-                <ListBoxItem Content="08. network_Test_client" />
-                <ListBoxItem Content="09. siltest" />
-                <ListBoxItem Content="10. tp_1" />
-                <ListBoxItem Content="11. twim_test" />
-            </ListBox>
-            <Button Content="OK"
-                    Height="40"
-                    Margin="10,10,10,0" />
-        </StackPanel>
+
+        <ContentControl Grid.Row="1"
+                        x:Name="SelectionControlContent">
+            <d:ContentControl.Content>
+                <local:FilesListView />
+            </d:ContentControl.Content>
+        </ContentControl>
+
+
+
     </Grid>
 </UserControl>

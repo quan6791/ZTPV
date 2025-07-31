@@ -80,6 +80,9 @@
     <Compile Include="Views\TeachingViews\SelectionControlView.xaml.cs">
       <DependentUpon>SelectionControlView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TeachingViews\SelectionControl\FilesListView.xaml.cs">
+      <DependentUpon>FilesListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ZeroUser.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -114,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TeachingViews\SelectionControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingViews\SelectionControl\FilesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
