@@ -501,6 +501,7 @@
   <ItemGroup>
     <Folder Include="Converters\" />
     <Folder Include="Themes\" />
+    <Folder Include="Views\TeachingViews\MotionControl\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CsvHelper">
