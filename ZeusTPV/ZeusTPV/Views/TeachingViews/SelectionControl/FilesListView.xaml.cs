@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ZeusTPV.Views
 {
@@ -7,6 +9,7 @@ namespace ZeusTPV.Views
     /// </summary>
     public partial class FilesListView : UserControl
     {
+        public event EventHandler<string> FileSelected;
         public FilesListView()
         {
             InitializeComponent();
@@ -25,6 +28,17 @@ namespace ZeusTPV.Views
                 }
                 this.lbx_Files.Items.Clear();
                 this.lbx_Files.ItemsSource = ZeroUser.Instance?.FilesList;
+            }
+        }
+
+        private void lbx_Files_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (lbx_Files.SelectedItem is string selectedItem)
+            {
+                string selectedFile = selectedItem.ToString();
+
+                // Raise event để parent control biết
+                FileSelected?.Invoke(this, selectedFile);
             }
         }
     }

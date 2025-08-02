@@ -1,0 +1,375 @@
+﻿<UserControl x:Class="ZeusTPV.Views.TeachingPositionDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ZeusTPV.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             Width="406"
+             Height="480"
+             Background="#F6FCFF"
+             Margin="0"
+             Padding="0">
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light"
+                                             PrimaryColor="DeepPurple"
+                                             SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Styles -->
+            <Style x:Key="HeaderTextStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="Margin"
+                        Value="0,0,0,10" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="Background"
+                        Value="LightGray" />
+                <Setter Property="Padding"
+                        Value="10,5" />
+            </Style>
+
+            <Style x:Key="LabelTextStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="FontSize"
+                        Value="12" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="0,5" />
+            </Style>
+
+            <Style x:Key="ValueTextStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="12" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="0,5" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Right" />
+            </Style>
+
+            <Style x:Key="ValueTextBoxStyle"
+                   TargetType="TextBox">
+                <Setter Property="FontSize"
+                        Value="12" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="0,2" />
+                <Setter Property="Padding"
+                        Value="5,2" />
+                <Setter Property="BorderBrush"
+                        Value="Gray" />
+                <Setter Property="BorderThickness"
+                        Value="1" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Right" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Left Column - Jnt [4] -->
+        <Border Grid.Column="0"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                Padding="10"
+                Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <TextBlock Grid.Row="0"
+                           Text="Jnt [4]"
+                           Style="{StaticResource HeaderTextStyle}" />
+
+                <!-- Position Values -->
+                <Grid Grid.Row="1"
+                      Margin="0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- X -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="X:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1"
+                             x:Name="txtJntX"
+                             Text="{Binding JntPosition.X, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Y -->
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Y:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             x:Name="txtJntY"
+                             Text="{Binding JntPosition.Y, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Z -->
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Z:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1"
+                             x:Name="txtJntZ"
+                             Text="{Binding JntPosition.Z, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Rz -->
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Text="Rz:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="1"
+                             x:Name="txtJntRz"
+                             Text="{Binding JntPosition.Rz, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Ry -->
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Text="Ry:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="4"
+                             Grid.Column="1"
+                             x:Name="txtJntRy"
+                             Text="{Binding JntPosition.Ry, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Rx -->
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="0"
+                               Text="Rx:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="5"
+                             Grid.Column="1"
+                             x:Name="txtJntRx"
+                             Text="{Binding JntPosition.Rx, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+                </Grid>
+
+                <!-- Posture -->
+                <Grid Grid.Row="2"
+                      Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Posture:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Column="1"
+                             x:Name="txtJntPosture"
+                             Text="{Binding JntPosition.Posture, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+                </Grid>
+
+                <!-- CC -->
+                <Grid Grid.Row="3"
+                      Margin="0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="CC:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Column="1"
+                             x:Name="txtJntCC"
+                             Text="{Binding JntPosition.CC, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Right Column - Current Position -->
+        <Border Grid.Column="2"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                Padding="10"
+                Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <TextBlock Grid.Row="0"
+                           Text="Current Position"
+                           Style="{StaticResource HeaderTextStyle}" />
+
+                <!-- Position Values -->
+                <Grid Grid.Row="1"
+                      Margin="0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- X -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="X:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.X, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Y -->
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Y:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Y, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Z -->
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Z:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Z, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Rz -->
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Text="Rz:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Rz, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Ry -->
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Text="Ry:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Ry, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Rx -->
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="0"
+                               Text="Rx:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Rx, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+                </Grid>
+
+                <!-- Posture -->
+                <Grid Grid.Row="2"
+                      Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Posture:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding CurrentPosition.Posture}"
+                               Style="{StaticResource ValueTextStyle}" />
+                </Grid>
+
+                <!-- CC -->
+                <Grid Grid.Row="3"
+                      Margin="0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="CC:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding CurrentPosition.CC}"
+                               Style="{StaticResource ValueTextStyle}" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <ComboBox Grid.Row="1"
+                  Grid.Column="0"
+                  Margin="10"
+                  Height="25"
+                  SelectedIndex="0">
+            <ComboBoxItem Content="Position (XY)" />
+            <ComboBoxItem Content="Joint(J1..J6)" />
+        </ComboBox>
+
+        <Button Grid.Row="1"
+                Grid.Column="2"
+                Margin="0,10"
+                Content="Replace" />
+    </Grid>
+</UserControl>
