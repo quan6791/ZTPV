@@ -145,8 +145,8 @@ namespace ZeusTPV
             // Initialize cancellation token
             _cancellationTokenSource = new CancellationTokenSource();
 
-
-            Initialize();
+            if (!Constants._isSimulation)
+                Initialize();
 
         }
 

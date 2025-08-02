@@ -15,13 +15,17 @@ namespace ZeusTPV.Views
 
         private void FilesListView_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            ZeroUser.Instance?.Connect();
-            if (this.lbx_Files != null)
+
+            if (!Constants._isSimulation)
             {
-                this.lbx_Files.ItemsSource = null;
+                ZeroUser.Instance?.Connect();
+                if (this.lbx_Files != null)
+                {
+                    this.lbx_Files.ItemsSource = null;
+                }
+                this.lbx_Files.Items.Clear();
+                this.lbx_Files.ItemsSource = ZeroUser.Instance?.FilesList;
             }
-            this.lbx_Files.Items.Clear();
-            this.lbx_Files.ItemsSource = ZeroUser.Instance?.FilesList;
         }
     }
 }

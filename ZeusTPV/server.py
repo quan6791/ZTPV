@@ -54,6 +54,21 @@ class RobotSimulationServer:
             2: {'x': 0, 'y': 0, 'z': 150, 'rz': 0, 'ry': 0, 'rx': 0},
         }
         
+        # File management for FilesListView
+        self.robot_files = [
+            "__init__",
+            "calib_teach", 
+            "init",
+            "init_util",
+            "io_test",
+            "main",
+            "network",
+            "network_test_client",
+            "selftest",
+            "tp_1",
+            "twim_test"
+        ]
+        
         # Command codes (complete list from rblib3.py)
         self.NOP = 1
         self.SVSW = 2
@@ -116,6 +131,28 @@ class RobotSimulationServer:
         self.ARCMOVE = 59
         self.CIRMOVE = 60
         self.MMARK = 61
+        
+        # Custom commands for FilesListView and MotionControlView
+        self.GET_FILE_LIST = 1000
+        self.GET_FILE_CONTENT = 1001
+        self.EXECUTE_FILE = 1002
+        self.UPLOAD_FILE = 1003
+        self.DELETE_FILE = 1004
+        
+        # Jog commands for MotionControlView
+        self.JOG_STOP = 2000
+        self.JOG_RZ_POSITIVE = 2001
+        self.JOG_RZ_NEGATIVE = 2002
+        self.JOG_RY_POSITIVE = 2003
+        self.JOG_RY_NEGATIVE = 2004
+        self.JOG_RX_POSITIVE = 2005
+        self.JOG_RX_NEGATIVE = 2006
+        self.JOG_Z_POSITIVE = 2007
+        self.JOG_Z_NEGATIVE = 2008
+        self.JOG_Y_POSITIVE = 2009
+        self.JOG_Y_NEGATIVE = 2010
+        self.JOG_X_POSITIVE = 2011
+        self.JOG_X_NEGATIVE = 2012
 
     def start(self):
         """Start the robot simulation server"""
@@ -154,12 +191,12 @@ class RobotSimulationServer:
                     if not data:
                         break
                     
-                    request = data.decode('ascii', errors='ignore')
+                    request = data.decode('utf-8', errors='ignore')
                     logger.info(f"Robot RX from {client_addr}: {request[:100]}...")
                     
                     response = self.process_command(request)
                     if response:
-                        client_sock.send(response.encode('ascii'))
+                        client_sock.send(response.encode('utf-8'))
                         logger.info(f"Robot TX to {client_addr}: {response[:100]}...")
                         
                 except socket.timeout:
@@ -186,6 +223,7 @@ class RobotSimulationServer:
             
             # Command dispatch
             command_handlers = {
+                # Standard robot commands
                 self.NOP: self.handle_nop,
                 self.SVSW: self.handle_servo_control,
                 self.PLSMOVE: self.handle_pulse_move,
@@ -220,6 +258,28 @@ class RobotSimulationServer:
                 self.ARCMOVE: self.handle_arc_move,
                 self.CIRMOVE: self.handle_circular_move,
                 self.MMARK: self.handle_multi_mark,
+                
+                # File management commands for FilesListView
+                self.GET_FILE_LIST: self.handle_get_file_list,
+                self.GET_FILE_CONTENT: self.handle_get_file_content,
+                self.EXECUTE_FILE: self.handle_execute_file,
+                self.UPLOAD_FILE: self.handle_upload_file,
+                self.DELETE_FILE: self.handle_delete_file,
+                
+                # Jog commands for MotionControlView
+                self.JOG_STOP: self.handle_jog_stop,
+                self.JOG_RZ_POSITIVE: self.handle_jog_rz_positive,
+                self.JOG_RZ_NEGATIVE: self.handle_jog_rz_negative,
+                self.JOG_RY_POSITIVE: self.handle_jog_ry_positive,
+                self.JOG_RY_NEGATIVE: self.handle_jog_ry_negative,
+                self.JOG_RX_POSITIVE: self.handle_jog_rx_positive,
+                self.JOG_RX_NEGATIVE: self.handle_jog_rx_negative,
+                self.JOG_Z_POSITIVE: self.handle_jog_z_positive,
+                self.JOG_Z_NEGATIVE: self.handle_jog_z_negative,
+                self.JOG_Y_POSITIVE: self.handle_jog_y_positive,
+                self.JOG_Y_NEGATIVE: self.handle_jog_y_negative,
+                self.JOG_X_POSITIVE: self.handle_jog_x_positive,
+                self.JOG_X_NEGATIVE: self.handle_jog_x_negative,
             }
             
             handler = command_handlers.get(cmd)
@@ -237,7 +297,363 @@ class RobotSimulationServer:
             logger.error(traceback.format_exc())
             return self.create_error_response(0, f"Processing error: {str(e)}")
 
-    # Command handlers
+    # ==================== FILE MANAGEMENT HANDLERS FOR FILESLISTVIEW ====================
+    
+    def handle_get_file_list(self, params=None):
+        """Get list of robot program files"""
+        try:
+            # Format files with numbering like in the UI
+            formatted_files = []
+            for i, filename in enumerate(self.robot_files, 1):
+                formatted_files.append(f"{i:02d}. {filename}")
+            
+            logger.info(f"Returning {len(formatted_files)} files")
+            return self.create_success_response(self.GET_FILE_LIST, [True] + formatted_files)
+        except Exception as e:
+            logger.error(f"Error getting file list: {e}")
+            return self.create_error_response(self.GET_FILE_LIST, f"Failed to get file list: {str(e)}")
+
+    def handle_get_file_content(self, params):
+        """Get content of a specific file"""
+        try:
+            if not params:
+                return self.create_error_response(self.GET_FILE_CONTENT, "No filename provided")
+            
+            filename = params[0]
+            
+            # Remove numbering if present (e.g., "01. __init__" -> "__init__")
+            if '. ' in filename:
+                filename = filename.split('. ', 1)[1]
+            
+            # Simulate file content based on filename
+            content = self.generate_file_content(filename)
+            
+            logger.info(f"Returning content for file: {filename}")
+            return self.create_success_response(self.GET_FILE_CONTENT, [True, content])
+            
+        except Exception as e:
+            logger.error(f"Error getting file content: {e}")
+            return self.create_error_response(self.GET_FILE_CONTENT, f"Failed to get file content: {str(e)}")
+
+    def handle_execute_file(self, params):
+        """Execute a robot program file"""
+        try:
+            if not params:
+                return self.create_error_response(self.EXECUTE_FILE, "No filename provided")
+            
+            filename = params[0]
+            
+            # Remove numbering if present
+            if '. ' in filename:
+                filename = filename.split('. ', 1)[1]
+            
+            logger.info(f"Executing file: {filename}")
+            
+            # Simulate file execution
+            execution_time = 2.0  # Simulate 2 second execution
+            self.simulate_file_execution(filename, execution_time)
+            
+            return self.create_success_response(self.EXECUTE_FILE, [True, f"Executing {filename}"])
+            
+        except Exception as e:
+            logger.error(f"Error executing file: {e}")
+            return self.create_error_response(self.EXECUTE_FILE, f"Failed to execute file: {str(e)}")
+
+    def handle_upload_file(self, params):
+        """Upload a new file to robot"""
+        try:
+            if len(params) < 2:
+                return self.create_error_response(self.UPLOAD_FILE, "Filename and content required")
+            
+            filename = params[0]
+            content = params[1]
+            
+            # Add to file list if not exists
+            if filename not in self.robot_files:
+                self.robot_files.append(filename)
+            
+            logger.info(f"File uploaded: {filename} ({len(content)} bytes)")
+            return self.create_success_response(self.UPLOAD_FILE, [True, f"File {filename} uploaded successfully"])
+            
+        except Exception as e:
+            logger.error(f"Error uploading file: {e}")
+            return self.create_error_response(self.UPLOAD_FILE, f"Failed to upload file: {str(e)}")
+
+    def handle_delete_file(self, params):
+        """Delete a file from robot"""
+        try:
+            if not params:
+                return self.create_error_response(self.DELETE_FILE, "No filename provided")
+            
+            filename = params[0]
+            
+            # Remove numbering if present
+            if '. ' in filename:
+                filename = filename.split('. ', 1)[1]
+            
+            if filename in self.robot_files:
+                self.robot_files.remove(filename)
+                logger.info(f"File deleted: {filename}")
+                return self.create_success_response(self.DELETE_FILE, [True, f"File {filename} deleted successfully"])
+            else:
+                return self.create_error_response(self.DELETE_FILE, f"File {filename} not found")
+            
+        except Exception as e:
+            logger.error(f"Error deleting file: {e}")
+            return self.create_error_response(self.DELETE_FILE, f"Failed to delete file: {str(e)}")
+
+    def generate_file_content(self, filename):
+        """Generate simulated file content based on filename"""
+        content_templates = {
+            "__init__": """#!/usr/bin/env python3
+# Robot initialization file
+import sys
+import time
+
+def initialize_robot():
+    print("Initializing robot system...")
+    # Initialize servo motors
+    # Set default positions
+    # Check safety systems
+    print("Robot initialization complete")
+
+if __name__ == '__main__':
+    initialize_robot()
+""",
+            "calib_teach": """#!/usr/bin/env python3
+# Calibration and teaching routines
+import rblib3 as rb
+
+def calibration_routine():
+    print("Starting calibration routine...")
+    # Move to calibration positions
+    # Record reference points
+    # Calculate offsets
+    print("Calibration complete")
+
+def teaching_mode():
+    print("Entering teaching mode...")
+    # Enable manual positioning
+    # Record waypoints
+    # Save trajectory
+    print("Teaching complete")
+
+if __name__ == '__main__':
+    calibration_routine()
+    teaching_mode()
+""",
+            "main": """#!/usr/bin/env python3
+# Main robot program
+import rblib3 as rb
+
+def main_program():
+    print("Starting main robot program...")
+    
+    # Initialize robot
+    rb.acquire_permission()
+    rb.servo_on()
+    
+    # Main operation loop
+    for i in range(10):
+        print(f"Cycle {i+1}")
+        # Add your robot operations here
+        time.sleep(1)
+    
+    # Cleanup
+    rb.servo_off()
+    rb.release_permission()
+    print("Main program complete")
+
+if __name__ == '__main__':
+    main_program()
+""",
+            "io_test": """#!/usr/bin/env python3
+# I/O testing routines
+import rblib3 as rb
+import time
+
+def test_digital_io():
+    print("Testing digital I/O...")
+    
+    # Test outputs
+    for port in range(8):
+        rb.set_digital_output(port, True)
+        time.sleep(0.5)
+        rb.set_digital_output(port, False)
+    
+    # Read inputs
+    for port in range(8):
+        state = rb.get_digital_input(port)
+        print(f"Input {port}: {state}")
+
+if __name__ == '__main__':
+    test_digital_io()
+""",
+            "network_test_client": """#!/usr/bin/env python3
+# Network connectivity test
+import socket
+import time
+
+def test_network_connection():
+    print("Testing network connection...")
+    
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect(('localhost', 12345))
+        sock.send(b'test_message')
+        response = sock.recv(1024)
+        print(f"Network test successful: {response}")
+        sock.close()
+    except Exception as e:
+        print(f"Network test failed: {e}")
+
+if __name__ == '__main__':
+    test_network_connection()
+"""
+        }
+        
+        return content_templates.get(filename, f"""#!/usr/bin/env python3
+# Robot program: {filename}
+# This is a simulated robot program file
+
+import rblib3 as rb
+import time
+
+def main():
+    print(f"Executing robot program: {filename}")
+    
+    # Add your robot operations here
+    time.sleep(1)
+    
+    print(f"Program {filename} completed")
+
+if __name__ == '__main__':
+    main()
+""")
+
+    def simulate_file_execution(self, filename, duration):
+        """Simulate file execution"""
+        def execution_complete():
+            time.sleep(duration)
+            logger.info(f"File execution completed: {filename}")
+        
+        execution_thread = threading.Thread(target=execution_complete)
+        execution_thread.daemon = True
+        execution_thread.start()
+
+    # ==================== JOG HANDLERS FOR MOTIONCONTROLVIEW ====================
+    
+    def handle_jog_stop(self, params):
+        """Stop all jog motion"""
+        self.is_moving = False
+        logger.info("Jog motion stopped")
+        return self.create_success_response(self.JOG_STOP, [True, "Jog stopped"])
+
+    def handle_jog_rz_positive(self, params):
+        """Jog Rz axis in positive direction"""
+        logger.info("Jogging Rz positive")
+        self.current_joint_position[5] += 1.0  # Simulate small increment
+        self.current_cartesian_position[3] += 1.0  # Update Rz in cartesian
+        self.simulate_jog_motion("Rz+")
+        return self.create_success_response(self.JOG_RZ_POSITIVE, [True, "Jog Rz positive started"])
+
+    def handle_jog_rz_negative(self, params):
+        """Jog Rz axis in negative direction"""
+        logger.info("Jogging Rz negative")
+        self.current_joint_position[5] -= 1.0
+        self.current_cartesian_position[3] -= 1.0
+        self.simulate_jog_motion("Rz-")
+        return self.create_success_response(self.JOG_RZ_NEGATIVE, [True, "Jog Rz negative started"])
+
+    def handle_jog_ry_positive(self, params):
+        """Jog Ry axis in positive direction"""
+        logger.info("Jogging Ry positive")
+        self.current_joint_position[4] += 1.0
+        self.current_cartesian_position[4] += 1.0
+        self.simulate_jog_motion("Ry+")
+        return self.create_success_response(self.JOG_RY_POSITIVE, [True, "Jog Ry positive started"])
+
+    def handle_jog_ry_negative(self, params):
+        """Jog Ry axis in negative direction"""
+        logger.info("Jogging Ry negative")
+        self.current_joint_position[4] -= 1.0
+        self.current_cartesian_position[4] -= 1.0
+        self.simulate_jog_motion("Ry-")
+        return self.create_success_response(self.JOG_RY_NEGATIVE, [True, "Jog Ry negative started"])
+
+    def handle_jog_rx_positive(self, params):
+        """Jog Rx axis in positive direction"""
+        logger.info("Jogging Rx positive")
+        self.current_joint_position[3] += 1.0
+        self.current_cartesian_position[5] += 1.0
+        self.simulate_jog_motion("Rx+")
+        return self.create_success_response(self.JOG_RX_POSITIVE, [True, "Jog Rx positive started"])
+
+    def handle_jog_rx_negative(self, params):
+        """Jog Rx axis in negative direction"""
+        logger.info("Jogging Rx negative")
+        self.current_joint_position[3] -= 1.0
+        self.current_cartesian_position[5] -= 1.0
+        self.simulate_jog_motion("Rx-")
+        return self.create_success_response(self.JOG_RX_NEGATIVE, [True, "Jog Rx negative started"])
+
+    def handle_jog_z_positive(self, params):
+        """Jog Z axis in positive direction"""
+        logger.info("Jogging Z positive")
+        self.current_cartesian_position[2] += 5.0  # 5mm increment
+        self.simulate_jog_motion("Z+")
+        return self.create_success_response(self.JOG_Z_POSITIVE, [True, "Jog Z positive started"])
+
+    def handle_jog_z_negative(self, params):
+        """Jog Z axis in negative direction"""
+        logger.info("Jogging Z negative")
+        self.current_cartesian_position[2] -= 5.0
+        self.simulate_jog_motion("Z-")
+        return self.create_success_response(self.JOG_Z_NEGATIVE, [True, "Jog Z negative started"])
+
+    def handle_jog_y_positive(self, params):
+        """Jog Y axis in positive direction"""
+        logger.info("Jogging Y positive")
+        self.current_cartesian_position[1] += 5.0
+        self.simulate_jog_motion("Y+")
+        return self.create_success_response(self.JOG_Y_POSITIVE, [True, "Jog Y positive started"])
+
+    def handle_jog_y_negative(self, params):
+        """Jog Y axis in negative direction"""
+        logger.info("Jogging Y negative")
+        self.current_cartesian_position[1] -= 5.0
+        self.simulate_jog_motion("Y-")
+        return self.create_success_response(self.JOG_Y_NEGATIVE, [True, "Jog Y negative started"])
+
+    def handle_jog_x_positive(self, params):
+        """Jog X axis in positive direction"""
+        logger.info("Jogging X positive")
+        self.current_cartesian_position[0] += 5.0
+        self.simulate_jog_motion("X+")
+        return self.create_success_response(self.JOG_X_POSITIVE, [True, "Jog X positive started"])
+
+    def handle_jog_x_negative(self, params):
+        """Jog X axis in negative direction"""
+        logger.info("Jogging X negative")
+        self.current_cartesian_position[0] -= 5.0
+        self.simulate_jog_motion("X-")
+        return self.create_success_response(self.JOG_X_NEGATIVE, [True, "Jog X negative started"])
+
+    def simulate_jog_motion(self, direction):
+        """Simulate jog motion for specified direction"""
+        self.is_moving = True
+        
+        def jog_complete():
+            time.sleep(0.1)  # Very short jog movement
+            self.is_moving = False
+            logger.debug(f"Jog motion {direction} completed")
+        
+        jog_thread = threading.Thread(target=jog_complete)
+        jog_thread.daemon = True
+        jog_thread.start()
+
+    # ==================== STANDARD ROBOT COMMAND HANDLERS ====================
+    
     def handle_nop(self, params):
         """No operation"""
         return self.create_success_response(self.NOP, [True])
@@ -604,6 +1020,8 @@ class RobotSimulationServer:
         
         return self.create_success_response(self.MMARK, [True] + multi_data)
 
+    # ==================== UTILITY METHODS ====================
+    
     def simulate_motion(self, duration):
         """Simulate robot motion for specified duration"""
         self.is_moving = True
@@ -926,7 +1344,12 @@ class SimulationServerManager:
             logger.info(f"🔐 SSH Server: 192.168.0.23:22")
             logger.info(f"👤 SSH Login: username='i611usr', password='i611'")
             logger.info("=" * 60)
-            logger.info("📝 Available commands via SSH:")
+            logger.info("📝 Available robot commands:")
+            logger.info("   - File management: GET_FILE_LIST, EXECUTE_FILE, etc.")
+            logger.info("   - Jog control: JOG_*_POSITIVE/NEGATIVE, JOG_STOP")
+            logger.info("   - Robot control: SERVO, MOVE, MARK, etc.")
+            logger.info("=" * 60)
+            logger.info("📝 Available SSH commands:")
             logger.info("   - ls          : List files")
             logger.info("   - ls *.py     : List Python files only")
             logger.info("   - cat <file>  : Show file content")
@@ -969,25 +1392,95 @@ class SimulationServerManager:
         finally:
             self.stop_all()
 
-
 def main():
     """Main function to run simulation environment"""
     print("\n" + "=" * 60)
     print("🤖 ROBOT TEACHING PENDANT SIMULATION ENVIRONMENT")
     print("=" * 60)
+    print("🔧 Initializing simulation servers...")
+    print("=" * 60)
     
     manager = SimulationServerManager()
     
-    if manager.start_all():
+    try:
+        if manager.start_all():
+            print("🎯 Simulation environment ready!")
+            print("🔗 Waiting for connections...")
+            print("=" * 60)
+            
+            # Display connection information
+            print("📋 CONNECTION DETAILS:")
+            print("   🤖 Robot TCP Server:")
+            print("      - Host: localhost")
+            print("      - Port: 12345")
+            print("      - Protocol: JSON over TCP")
+            print("")
+            print("   🔐 SSH Server:")
+            print("      - Host: 192.168.0.23")
+            print("      - Port: 22")
+            print("      - Username: i611usr")
+            print("      - Password: i611")
+            print("")
+            print("📊 SUPPORTED FEATURES:")
+            print("   ✅ File Management (FilesListView)")
+            print("   ✅ Jog Control (MotionControlView)")
+            print("   ✅ Robot Commands (All rblib3 functions)")
+            print("   ✅ SSH Terminal Access")
+            print("   ✅ Position Monitoring")
+            print("   ✅ I/O Control")
+            print("=" * 60)
+            
+            try:
+                # Run the main loop
+                manager.run_forever()
+                
+            except KeyboardInterrupt:
+                print("\n" + "=" * 60)
+                print("🔔 SHUTDOWN SIGNAL RECEIVED")
+                print("=" * 60)
+                
+            except Exception as e:
+                print(f"\n❌ Simulation environment error: {e}")
+                logger.error(f"Main loop error: {e}")
+                logger.error(traceback.format_exc())
+                
+        else:
+            print("❌ Failed to start simulation environment")
+            print("🔍 Check the logs above for detailed error information")
+            print("💡 Common issues:")
+            print("   - Port already in use (try closing other applications)")
+            print("   - Permission denied (try running as administrator)")
+            print("   - Missing dependencies (install paramiko: pip install paramiko)")
+            return 1
+            
+    except Exception as e:
+        print(f"\n💥 CRITICAL ERROR: {e}")
+        logger.critical(f"Critical startup error: {e}")
+        logger.critical(traceback.format_exc())
+        return 1
+        
+    finally:
+        # Ensure cleanup
         try:
-            manager.run_forever()
-        except Exception as e:
-            logger.error(f"Simulation environment error: {e}")
-            manager.stop_all()
-    else:
-        logger.error("Failed to start simulation environment")
-        sys.exit(1)
+            if manager:
+                manager.stop_all()
+        except:
+            pass
+            
+        print("\n" + "=" * 60)
+        print("👋 ROBOT SIMULATION ENVIRONMENT STOPPED")
+        print("   Thank you for using the simulation!")
+        print("=" * 60)
+        
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        exit_code = main()
+        sys.exit(exit_code)
+    except Exception as e:
+        print(f"\n💀 FATAL ERROR: {e}")
+        logging.critical(f"Fatal error in main: {e}")
+        logging.critical(traceback.format_exc())
+        sys.exit(1)

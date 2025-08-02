@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Constants.cs" />
     <Compile Include="Jog.cs" />
     <Compile Include="rblib3.cs" />
     <Compile Include="Views\HomeView.xaml.cs">

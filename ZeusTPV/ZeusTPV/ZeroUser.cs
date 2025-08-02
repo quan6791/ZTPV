@@ -11,6 +11,7 @@ namespace ZeusTPV
     public class ZeroUser
     {
         private const string HOST = "192.168.0.23";
+        // private const string HOST = "localhost";
         private const string USER = "i611usr";
         private const string PASSWORD = "i611";
 
