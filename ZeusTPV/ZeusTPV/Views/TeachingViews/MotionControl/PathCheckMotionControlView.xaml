@@ -1,0 +1,269 @@
+﻿<UserControl x:Class="ZeusTPV.Views.PathCheckMotionControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ZeusTPV.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             Width="670"
+             Height="600"
+             Background="#F6FCFF"
+             Margin="0"
+             Padding="0">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light"
+                                             PrimaryColor="DeepPurple"
+                                             SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Button Styles -->
+            <Style x:Key="BlueButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Background"
+                        Value="#4285F4" />
+                <Setter Property="Foreground"
+                        Value="White" />
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="Cursor"
+                        Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    CornerRadius="8"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Background"
+                                            Value="#3367D6" />
+                                </Trigger>
+                                <Trigger Property="IsPressed"
+                                         Value="True">
+                                    <Setter Property="Background"
+                                            Value="#2E5BC7" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!-- Top Button Style -->
+            <Style x:Key="TopButtonStyle"
+                   TargetType="Button"
+                   BasedOn="{StaticResource BlueButtonStyle}">
+                <Setter Property="Width"
+                        Value="120" />
+                <Setter Property="Height"
+                        Value="50" />
+                <Setter Property="Margin"
+                        Value="10" />
+            </Style>
+            <!-- Side Button Style -->
+            <Style x:Key="SideButtonStyle"
+                   TargetType="Button"
+                   BasedOn="{StaticResource BlueButtonStyle}">
+                <Setter Property="Width"
+                        Value="60" />
+                <Setter Property="Height"
+                        Value="40" />
+                <Setter Property="Margin"
+                        Value="5" />
+            </Style>
+            <!-- DataGrid Header Style -->
+            <Style x:Key="DataGridHeaderStyle"
+                   TargetType="DataGridColumnHeader">
+                <Setter Property="Background"
+                        Value="#E0E0E0" />
+                <Setter Property="Foreground"
+                        Value="#333333" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="FontSize"
+                        Value="14" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="Height"
+                        Value="35" />
+                <Setter Property="BorderBrush"
+                        Value="#CCCCCC" />
+                <Setter Property="BorderThickness"
+                        Value="1" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="#F6FCFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!-- Top Buttons -->
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="20,20,20,10">
+            <Button Name="btnCycle"
+                    Style="{StaticResource TopButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🔄"
+                               FontSize="18"
+                               Margin="0,0,5,0" />
+                    <TextBlock Text="Cycle" />
+                </StackPanel>
+            </Button>
+            <Button Name="btnStep"
+                    Style="{StaticResource TopButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="➡"
+                               FontSize="18"
+                               Margin="0,0,5,0" />
+                    <TextBlock Text="Step" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <!-- Left Side Buttons -->
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Orientation="Vertical"
+                    Margin="20,10,10,10"
+                    VerticalAlignment="Top">
+            <Button Name="btnAdd"
+                    Style="{StaticResource SideButtonStyle}"
+                    Content="Add" />
+            <Button Name="btnDel"
+                    Style="{StaticResource SideButtonStyle}"
+                    Content="Del" />
+            <Button Name="btnUp"
+                    Style="{StaticResource SideButtonStyle}"
+                    Content="▲"
+                    FontSize="20" />
+            <Button Name="btnDown"
+                    Style="{StaticResource SideButtonStyle}"
+                    Content="▼"
+                    FontSize="20" />
+            <Button Name="btnClear"
+                    Style="{StaticResource SideButtonStyle}"
+                    Content="Clear" />
+        </StackPanel>
+        <!-- Main DataGrid -->
+        <DataGrid Grid.Row="1"
+                  Grid.Column="1"
+                  Name="dgPathData"
+                  Margin="10,10,20,10"
+                  Background="White"
+                  GridLinesVisibility="All"
+                  HeadersVisibility="Column"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  AutoGenerateColumns="False"
+                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+                  SelectionMode="Single"
+                  IsReadOnly="True"
+                  SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Binding="{Binding Name}"
+                                    Width="80"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Type"
+                                    Binding="{Binding Type}"
+                                    Width="80"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Path"
+                                    Binding="{Binding Path}"
+                                    Width="80"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="X / J1"
+                                    Binding="{Binding XJ1}"
+                                    Width="80"
+                                    IsReadOnly="False" />
+                <DataGridTextColumn Header="Y / J2"
+                                    Binding="{Binding YJ2}"
+                                    Width="80"
+                                    IsReadOnly="False" />
+                <DataGridTextColumn Header="Z / J3"
+                                    Binding="{Binding ZJ3}"
+                                    Width="80"
+                                    IsReadOnly="False" />
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Height"
+                            Value="40" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    Value="#E3F2FD" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    Value="#F5F5F5" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+        <!-- Bottom Controls -->
+        <!--
+        <Grid Grid.Row="2"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Margin="20,10,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            -->
+        <!-- Left Checkbox -->
+        <!--
+            <CheckBox Grid.Column="0"
+                      Name="chkLeftOption"
+                      Content=""
+                      VerticalAlignment="Center"
+                      Margin="0,0,20,0" />
+            -->
+        <!-- Center Progress Bar -->
+        <!--
+            <ProgressBar Grid.Column="1"
+                         Name="progressPath"
+                         Height="20"
+                         Background="#E0E0E0"
+                         Foreground="#4285F4"
+                         Value="0"
+                         Maximum="100"
+                         VerticalAlignment="Center" />
+            -->
+        <!-- Right Checkbox -->
+        <!--
+            <CheckBox Grid.Column="2"
+                      Name="chkRightOption"
+                      Content=""
+                      VerticalAlignment="Center"
+                      Margin="20,0,0,0" />
+        </Grid>-->
+    </Grid>
+</UserControl>

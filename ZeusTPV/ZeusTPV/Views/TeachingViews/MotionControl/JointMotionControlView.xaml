@@ -1,0 +1,222 @@
+﻿<UserControl x:Class="ZeusTPV.Views.JointMotionControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ZeusTPV.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             Width="670"
+             Height="600"
+             Background="#F6FCFF"
+             Margin="0"
+             Padding="0">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light"
+                                             PrimaryColor="DeepPurple"
+                                             SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Custom Button Style Template -->
+            <Style x:Key="ImageButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Background"
+                        Value="#4285F4" />
+                <Setter Property="Foreground"
+                        Value="White" />
+                <Setter Property="FontSize"
+                        Value="18" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="Width"
+                        Value="120" />
+                <Setter Property="Height"
+                        Value="50" />
+                <Setter Property="Margin"
+                        Value="5" />
+                <Setter Property="Cursor"
+                        Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    x:Name="border">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  x:Name="contentPresenter">
+                                    <ContentPresenter.RenderTransform>
+                                        <ScaleTransform x:Name="scaleTransform"
+                                                        ScaleX="1"
+                                                        ScaleY="1" />
+                                    </ContentPresenter.RenderTransform>
+                                    <ContentPresenter.RenderTransformOrigin>
+                                        <Point X="0.5"
+                                               Y="0.5" />
+                                    </ContentPresenter.RenderTransformOrigin>
+                                </ContentPresenter>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Background"
+                                            Value="#3367D6" />
+                                </Trigger>
+                                <Trigger Property="IsPressed"
+                                         Value="True">
+                                    <Setter Property="Background"
+                                            Value="#2E5BC7" />
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleX"
+                                                                 To="1.3"
+                                                                 Duration="0:0:0.1" />
+                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleY"
+                                                                 To="1.3"
+                                                                 Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleX"
+                                                                 To="1.0"
+                                                                 Duration="0:0:0.1" />
+                                                <DoubleAnimation Storyboard.TargetName="scaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleY"
+                                                                 To="1.0"
+                                                                 Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0"
+               Margin="60"
+               Source="/image/Joint/Joint_6AXIS.png"
+               Stretch="Uniform" />
+        <!-- Joint Control Buttons -->
+        <Grid Grid.Column="1"
+              Margin="20,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!-- J6 Joint Controls -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J6-"
+                        Name="btnJ6Negative" />
+                <Button Grid.Column="1"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J6+"
+                        Name="btnJ6Positive" />
+            </Grid>
+            <!-- J5 Joint Controls -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J5-"
+                        Name="btnJ5Negative" />
+                <Button Grid.Column="1"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J5+"
+                        Name="btnJ5Positive" />
+            </Grid>
+            <!-- J4 Joint Controls -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J4-"
+                        Name="btnJ4Negative" />
+                <Button Grid.Column="1"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J4+"
+                        Name="btnJ4Positive" />
+            </Grid>
+            <!-- J3 Joint Controls -->
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J3-"
+                        Name="btnJ3Negative" />
+                <Button Grid.Column="1"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J3+"
+                        Name="btnJ3Positive" />
+            </Grid>
+            <!-- J2 Joint Controls -->
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J2-"
+                        Name="btnJ2Negative" />
+                <Button Grid.Column="1"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J2+"
+                        Name="btnJ2Positive" />
+            </Grid>
+            <!-- J1 Joint Controls -->
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J1-"
+                        Name="btnJ1Negative" />
+                <Button Grid.Column="1"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Content="J1+"
+                        Name="btnJ1Positive" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

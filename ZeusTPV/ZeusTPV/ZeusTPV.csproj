@@ -75,6 +75,18 @@
     <Compile Include="Views\TeachingViews\MotionControlView.xaml.cs">
       <DependentUpon>MotionControlView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TeachingViews\MotionControl\JointMotionControlView.xaml.cs">
+      <DependentUpon>JointMotionControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeachingViews\MotionControl\MoveToMotionControlView.xaml.cs">
+      <DependentUpon>MoveToMotionControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeachingViews\MotionControl\PathCheckMotionControlView.xaml.cs">
+      <DependentUpon>PathCheckMotionControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeachingViews\MotionControl\XYMotionControlView.xaml.cs">
+      <DependentUpon>XYMotionControlView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TeachingViews\ParamsControlView.xaml.cs">
       <DependentUpon>ParamsControlView.xaml</DependentUpon>
     </Compile>
@@ -116,6 +128,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TeachingViews\MotionControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingViews\MotionControl\JointMotionControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingViews\MotionControl\MoveToMotionControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingViews\MotionControl\PathCheckMotionControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeachingViews\MotionControl\XYMotionControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +193,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -502,7 +531,6 @@
   <ItemGroup>
     <Folder Include="Converters\" />
     <Folder Include="Themes\" />
-    <Folder Include="Views\TeachingViews\MotionControl\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CsvHelper">
@@ -519,6 +547,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
       <Version>1.1.39</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="Renci.SshNet.Async">
       <Version>1.4.0</Version>

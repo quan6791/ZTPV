@@ -1,6 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ZeusTPV.Views
 {
@@ -11,111 +10,81 @@ namespace ZeusTPV.Views
 
     public partial class MotionControlView : UserControl
     {
-        private Jog _jog;
+
+        private XYMotionControlView _xYMotionControlView;
+        private JointMotionControlView _jointMotionControlView;
+        private MoveToMotionControlView _moveToMotionControlView;
+        private PathCheckMotionControlView _pathCheckMotionControlView;
+
+
+        // Define colors
+        private readonly SolidColorBrush ActiveColor = new SolidColorBrush(Color.FromRgb(66, 133, 244)); // #4285F4
+        private readonly SolidColorBrush InactiveColor = new SolidColorBrush(Color.FromRgb(230, 230, 230)); // #E6E6E6
+        private readonly SolidColorBrush ActiveTextColor = Brushes.White;
+        private readonly SolidColorBrush InactiveTextColor = new SolidColorBrush(Color.FromRgb(136, 136, 136)); // #888888
+
 
         public MotionControlView()
         {
             InitializeComponent();
-            this.Loaded += MotionControlView_Loaded;
+
+            this.MotionControlContent.Content = _xYMotionControlView ?? new XYMotionControlView();
+            SetActiveButton(btnXY);
 
         }
 
-        private void MotionControlView_Loaded(object sender, RoutedEventArgs e)
+        private void XYButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            _jog = Jog.Instance;
+            this.MotionControlContent.Content = _xYMotionControlView ?? new XYMotionControlView();
+            SetActiveButton(btnXY);
+
         }
 
-
-        // Rz
-        private async void RzPositive_Click(object sender, RoutedEventArgs e)
+        private void JointButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            _jog.JogRzPositive();
-            await Task.Delay(2000);
-            _jog.StopJog();
+            this.MotionControlContent.Content = _jointMotionControlView ?? new JointMotionControlView();
+            SetActiveButton(btnJoint);
 
         }
 
-        private async void RzNegative_Click(object sender, RoutedEventArgs e)
+        private void MoveButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            _jog.JogRzNegative();
-            await Task.Delay(2000);
-            _jog.StopJog();
+            this.MotionControlContent.Content = _moveToMotionControlView ?? new MoveToMotionControlView();
+            SetActiveButton(btnMoveTo);
 
         }
 
-        // Ry
-        private async void RyPositive_Click(object sender, RoutedEventArgs e)
+        private void PathCheck_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            _jog.JogRyPositive();
-            await Task.Delay(2000);
-            _jog.StopJog();
+            this.MotionControlContent.Content = _pathCheckMotionControlView ?? new PathCheckMotionControlView();
+            SetActiveButton(btnPathCheck);
 
         }
 
-        private async void RyNegative_Click(object sender, RoutedEventArgs e)
+        private void SetActiveButton(Button activeButton)
         {
-            _jog.JogRyNegative();
-            await Task.Delay(2000);
-            _jog.StopJog();
+            // Reset all buttons to inactive state
+            ResetAllButtons();
+
+            // Set active button style
+            activeButton.Background = ActiveColor;
+            activeButton.Foreground = ActiveTextColor;
         }
 
-        // Rx
-        private async void RxPositive_Click(object sender, RoutedEventArgs e)
+        private void ResetAllButtons()
         {
-            _jog.JogRxPositive();
-            await Task.Delay(2000);
-            _jog.StopJog();
-        }
-        private async void RxNegative_Click(object sender, RoutedEventArgs e)
-        {
-            _jog.JogRxNegative();
-            await Task.Delay(2000);
-            _jog.StopJog();
-        }
+            // Set all buttons to inactive state
+            btnXY.Background = InactiveColor;
+            btnXY.Foreground = InactiveTextColor;
 
-        // Z
-        private async void ZPositive_Click(object sender, RoutedEventArgs e)
-        {
-            _jog.JogZPositive();
-            await Task.Delay(2000);
-            _jog.StopJog();
-        }
+            btnJoint.Background = InactiveColor;
+            btnJoint.Foreground = InactiveTextColor;
 
-        private async void ZNegative_Click(object sender, RoutedEventArgs e)
-        {
-            _jog.JogZNegative();
-            await Task.Delay(2000);
-            _jog.StopJog();
-        }
+            btnMoveTo.Background = InactiveColor;
+            btnMoveTo.Foreground = InactiveTextColor;
 
-        // Y
-        private async void YPositive_Click(object sender, RoutedEventArgs e)
-        {
-            _jog.JogYPositive();
-            await Task.Delay(2000);
-            _jog.StopJog();
+            btnPathCheck.Background = InactiveColor;
+            btnPathCheck.Foreground = InactiveTextColor;
         }
-
-        private async void YNegative_Click(object sender, RoutedEventArgs e)
-        {
-            _jog.JogYNegative();
-            await Task.Delay(2000);
-            _jog.StopJog();
-        }
-
-        // X
-        private async void XPositive_Click(object sender, RoutedEventArgs e)
-        {
-            _jog.JogXPositive();
-            await Task.Delay(2000);
-            _jog.StopJog();
-        }
-        private async void XNegative_Click(object sender, RoutedEventArgs e)
-        {
-            _jog.JogXNegative();
-            await Task.Delay(2000);
-            _jog.StopJog();
-        }
-
     }
 }
