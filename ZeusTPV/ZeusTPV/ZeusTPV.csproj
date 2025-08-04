@@ -190,6 +190,7 @@
     <None Include="image\Etc\XYZ image.pptx" />
     <None Include="image\Teaching.qrc" />
     <None Include="org.csv" />
+    <None Include="org.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
