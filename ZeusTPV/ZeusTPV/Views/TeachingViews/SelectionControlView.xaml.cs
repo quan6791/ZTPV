@@ -48,7 +48,7 @@ namespace ZeusTPV.Views
 
                 // Create TeachingDataView with selected file
                 // _teachingDataView = new TeachingDataView(selectedFile);
-                _teachingDataView = new TeachingDataView();
+                _teachingDataView = new TeachingDataView(selectedFile);
                 _teachingDataView.PositionSelected += OnPositionSelected;
 
                 // Switch content to TeachingDataView

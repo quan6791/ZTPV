@@ -21,11 +21,15 @@ namespace ZeusTPV.Views
         public event EventHandler<int> PositionSelected;
 
 
-        public TeachingDataView()
+        public TeachingDataView(string selectedFile = null)
         {
             InitializeComponent();
             // Load sample data
-            _teachData = new TempTeachData(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SampleTeachFile1.csv"));
+            if (selectedFile != null)
+                _teachData = new TempTeachData(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedFile + ".csv"));
+            else
+                _teachData = new TempTeachData(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SampleTeachFile1.csv"));
+
             DataContext = _teachData;
 
             // Set initial selection

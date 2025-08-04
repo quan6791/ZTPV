@@ -136,11 +136,13 @@
                 <Button Grid.Column="0"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J6-"
-                        Name="btnJ6Negative" />
+                        Name="btnJ6Negative"
+                        Click="J6MinusBtn_Click" />
                 <Button Grid.Column="1"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J6+"
-                        Name="btnJ6Positive" />
+                        Name="btnJ6Positive"
+                        Click="J6PlusBtn_Click" />
             </Grid>
             <!-- J5 Joint Controls -->
             <Grid Grid.Row="1">
@@ -151,11 +153,13 @@
                 <Button Grid.Column="0"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J5-"
-                        Name="btnJ5Negative" />
+                        Name="btnJ5Negative"
+                        Click="J5MinusBtn_Click" />
                 <Button Grid.Column="1"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J5+"
-                        Name="btnJ5Positive" />
+                        Name="btnJ5Positive"
+                        Click="J5PlusBtn_Click" />
             </Grid>
             <!-- J4 Joint Controls -->
             <Grid Grid.Row="2">
@@ -166,11 +170,13 @@
                 <Button Grid.Column="0"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J4-"
-                        Name="btnJ4Negative" />
+                        Name="btnJ4Negative"
+                        Click="J4MinusBtn_Click" />
                 <Button Grid.Column="1"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J4+"
-                        Name="btnJ4Positive" />
+                        Name="btnJ4Positive"
+                        Click="J4PlusBtn_Click" />
             </Grid>
             <!-- J3 Joint Controls -->
             <Grid Grid.Row="3">
@@ -181,11 +187,13 @@
                 <Button Grid.Column="0"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J3-"
-                        Name="btnJ3Negative" />
+                        Name="btnJ3Negative"
+                        Click="J3MinusBtn_Click" />
                 <Button Grid.Column="1"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J3+"
-                        Name="btnJ3Positive" />
+                        Name="btnJ3Positive"
+                        Click="J3PlusBtn_Click" />
             </Grid>
             <!-- J2 Joint Controls -->
             <Grid Grid.Row="4">
@@ -196,11 +204,13 @@
                 <Button Grid.Column="0"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J2-"
-                        Name="btnJ2Negative" />
+                        Name="btnJ2Negative"
+                        Click="J2MinusBtn_Click" />
                 <Button Grid.Column="1"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J2+"
-                        Name="btnJ2Positive" />
+                        Name="btnJ2Positive"
+                        Click="J2PlusBtn_Click" />
             </Grid>
             <!-- J1 Joint Controls -->
             <Grid Grid.Row="5">
@@ -211,11 +221,13 @@
                 <Button Grid.Column="0"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J1-"
-                        Name="btnJ1Negative" />
+                        Name="btnJ1Negative"
+                        Click="J1MinusBtn_Click" />
                 <Button Grid.Column="1"
                         Style="{StaticResource ImageButtonStyle}"
                         Content="J1+"
-                        Name="btnJ1Positive" />
+                        Name="btnJ1Positive"
+                        Click="J1PlusBtn_Click" />
             </Grid>
         </Grid>
     </Grid>

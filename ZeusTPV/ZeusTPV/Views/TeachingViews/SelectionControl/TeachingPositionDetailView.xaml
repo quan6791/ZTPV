@@ -99,7 +99,8 @@
                 BorderBrush="Gray"
                 BorderThickness="1"
                 Padding="10"
-                Background="White">
+                Background="White"
+                Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -235,7 +236,8 @@
                 BorderBrush="Gray"
                 BorderThickness="1"
                 Padding="10"
-                Background="White">
+                Background="White"
+                Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -357,6 +359,274 @@
                 </Grid>
             </Grid>
         </Border>
+
+
+        <!-- Lef column - Joint Position -->
+        <Border Grid.Column="0"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                Padding="10"
+                Background="White"
+                Visibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <TextBlock Grid.Row="0"
+                           Text="Jnt [4]"
+                           Style="{StaticResource HeaderTextStyle}" />
+
+                <!-- Position Values -->
+                <Grid Grid.Row="1"
+                      Margin="0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- X -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="J1:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1"
+                             x:Name="txtJ1"
+                             Text="{Binding JntPosition.X, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Y -->
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="J2:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             x:Name="txtJ2"
+                             Text="{Binding JntPosition.Y, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Z -->
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="J3:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1"
+                             x:Name="txtJ3"
+                             Text="{Binding JntPosition.Z, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Rz -->
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Text="J4:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="1"
+                             x:Name="txtJ4"
+                             Text="{Binding JntPosition.Rz, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Ry -->
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Text="J5:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="4"
+                             Grid.Column="1"
+                             x:Name="txtJ5"
+                             Text="{Binding JntPosition.Ry, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+
+                    <!-- Rx -->
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="0"
+                               Text="J6:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Row="5"
+                             Grid.Column="1"
+                             x:Name="txtJ6"
+                             Text="{Binding JntPosition.Rx, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+                </Grid>
+
+                <!-- Posture -->
+                <Grid Grid.Row="2"
+                      Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Posture:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Column="1"
+                             x:Name="txtJntPosture1"
+                             Text="{Binding JntPosition.Posture, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+                </Grid>
+
+                <!-- CC -->
+                <Grid Grid.Row="3"
+                      Margin="0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="CC:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBox Grid.Column="1"
+                             x:Name="txtJntCC1"
+                             Text="{Binding JntPosition.CC, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource ValueTextBoxStyle}" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Right column - Current Position -->
+        <Border Grid.Column="2"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                Padding="10"
+                Background="White"
+                Visibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <TextBlock Grid.Row="0"
+                           Text="Current Position"
+                           Style="{StaticResource HeaderTextStyle}" />
+
+                <!-- Position Values -->
+                <Grid Grid.Row="1"
+                      Margin="0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- X -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="J1:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.X, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Y -->
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="J2:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Y, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Z -->
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="J3:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Z, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Rz -->
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Text="J4:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Rz, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Ry -->
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Text="J5:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Ry, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+
+                    <!-- Rx -->
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="0"
+                               Text="J6:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="1"
+                               Text="{Binding CurrentPosition.Rx, StringFormat=F3}"
+                               Style="{StaticResource ValueTextStyle}" />
+                </Grid>
+
+                <!-- Posture -->
+                <Grid Grid.Row="2"
+                      Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="Posture:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding CurrentPosition.Posture}"
+                               Style="{StaticResource ValueTextStyle}" />
+                </Grid>
+
+                <!-- CC -->
+                <Grid Grid.Row="3"
+                      Margin="0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Text="CC:"
+                               Style="{StaticResource LabelTextStyle}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding CurrentPosition.CC}"
+                               Style="{StaticResource ValueTextStyle}" />
+                </Grid>
+            </Grid>
+        </Border>
+
 
         <ComboBox Grid.Row="1"
                   Grid.Column="0"

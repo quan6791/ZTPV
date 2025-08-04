@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
@@ -88,6 +90,7 @@ namespace ZeusTPV
         private NetworkStream _stream;
         private object _lock = new object();
         private bool _linearJointSupport = false;
+
 
         public Robot(string host, int port)
         {
@@ -340,13 +343,17 @@ namespace ZeusTPV
                 @params = new object[]
                 {
                     axes,
-                    speed,
-                    acct,
-                    dacct
+                    Math.Round(speed, 1),
+                    Math.Round(acct, 2),
+                    Math.Round(dacct, 2)
+
                 }
             };
 
-            string jsonStr = JsonSerializer.Serialize(paramObj);
+            // Fix for CS1061: Ensure the 'axes' object is cast to a type that supports LINQ's Select method.
+            // Assuming 'axes' is an IEnumerable<double> or similar, cast it appropriately.
+            string axesStr = "[" + string.Join(",", ((IEnumerable<double>)axes).Select(x => x.ToString())) + "]";
+            string jsonStr = $"{{\"cmd\":{_JNTMOVE},\"params\":[{axesStr},{speed:F1},{acct:F2},{dacct:F2}]}}";
 
             lock (_lock)
             {

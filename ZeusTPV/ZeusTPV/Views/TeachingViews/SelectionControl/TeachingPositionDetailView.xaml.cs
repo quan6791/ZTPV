@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ZeusTPV.Views
@@ -9,11 +11,39 @@ namespace ZeusTPV.Views
     /// </summary>
     public partial class TeachingPositionDetailView : UserControl
     {
+        private PositionDetailViewModel _viewModel;
         public TeachingPositionDetailView()
         {
             InitializeComponent();
-            this.DataContext = new PositionDetailViewModel();
+            _viewModel = new PositionDetailViewModel();
+            this.DataContext = _viewModel;
+            // Subscribe to position updates
+            ZeroUser.Instance.PositionUpdated += OnPositionUpdated;
+            ZeroUser.Instance.JogStatusUpdated += OnJogStatusUpdated;
 
+            //this.Unloaded += TeachingPositionDetailView_Unloaded;
+
+
+        }
+
+        private void TeachingPositionDetailView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ZeroUser.Instance.PositionUpdated -= OnPositionUpdated;
+            ZeroUser.Instance.JogStatusUpdated -= OnJogStatusUpdated;
+        }
+
+        private void OnJogStatusUpdated(JogStatus status)
+        {
+            if (status.RetSingular)
+            {
+                // Show singular point warning
+                Console.WriteLine("Singular point detected!");
+            }
+        }
+
+        private void OnPositionUpdated(ZeusTPV.PositionData position)
+        {
+            _viewModel.UpdateCurrentPosition(position);
         }
 
         public void LoadPositionData(TeachDataRecord selectedRecord)
@@ -96,22 +126,37 @@ namespace ZeusTPV.Views
             }
         }
 
-        public void UpdateCurrentPosition(double[] position)
+        //public void UpdateCurrentPosition(double[] position)
+        //{
+        //    if (position != null && position.Length >= 6)
+        //    {
+        //        CurrentPosition = new PositionData
+        //        {
+        //            X = position[0],
+        //            Y = position[1],
+        //            Z = position[2],
+        //            Rz = position[3],
+        //            Ry = position[4],
+        //            Rx = position[5],
+        //            Posture = 7,
+        //            CC = "0x000000"
+        //        };
+        //    }
+        //}
+
+        public void UpdateCurrentPosition(ZeusTPV.PositionData position)
         {
-            if (position != null && position.Length >= 6)
+            CurrentPosition = new PositionData
             {
-                CurrentPosition = new PositionData
-                {
-                    X = position[0],
-                    Y = position[1],
-                    Z = position[2],
-                    Rz = position[3],
-                    Ry = position[4],
-                    Rx = position[5],
-                    Posture = 7,
-                    CC = "0x000000"
-                };
-            }
+                X = position.X,
+                Y = position.Y,
+                Z = position.Z,
+                Rz = position.RZ,
+                Ry = position.RY,
+                Rx = position.RX,
+                Posture = int.Parse(position.Posture),
+                CC = position.Mt
+            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

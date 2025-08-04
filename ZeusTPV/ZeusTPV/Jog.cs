@@ -344,7 +344,7 @@ namespace ZeusTPV
                     currentJnt[3] + Math.Round(_jogJnt[3], 2),
                     currentJnt[4] + Math.Round(_jogJnt[4], 2),
                     currentJnt[5] + Math.Round(_jogJnt[5], 2),
-                    _pitchJntSpd, 0.2, 0.2);
+                    _pitchJntSpd, 0.2, 0.2); //_pitchJntSpd
             }
             else if (jogModeParam == MOVE_MODE.CPMOVE)
             {

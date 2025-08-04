@@ -1,8 +1,8 @@
-﻿
-using Renci.SshNet;
+﻿using Renci.SshNet;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 
@@ -11,27 +11,35 @@ namespace ZeusTPV
     public class ZeroUser
     {
         private const string HOST = "192.168.0.23";
-        // private const string HOST = "localhost";
         private const string USER = "i611usr";
         private const string PASSWORD = "i611";
 
-        //private MainWindow ow;
         private SshClient sshClient;
         private Thread workerThread;
         private bool isRunning = false;
         private int count = 0;
-        public ObservableCollection<string> FilesList { get; set; } = new ObservableCollection<string>();
 
+        // Properties
+        public ObservableCollection<string> FilesList { get; set; } = new ObservableCollection<string>();
+        public List<double> CurPositionList { get; set; } = new List<double>(new double[14]);
+
+        // Events for position updates
+        public event Action<PositionData> PositionUpdated;
+        public event Action<JogStatus> JogStatusUpdated;
+
+        // Status flags
+        public bool RetSingular { get; private set; }
+        public bool RetSpdLimit { get; private set; }
+        public bool RetAngleLimit { get; private set; }
+
+        // Singleton pattern
         private static readonly Lazy<ZeroUser> _instance = new Lazy<ZeroUser>(() => new ZeroUser());
         public static ZeroUser Instance => _instance.Value;
 
-
-
         public ZeroUser()
         {
-            //this.ow = _ow;
-            //// Equivalent to setDaemon(True) in Python
-            //this.ow.DisableBtn();
+            // Initialize CurPositionList with default values
+            CurPositionList = Enumerable.Repeat(0.0, 14).ToList();
         }
 
         public void Connect()
@@ -48,33 +56,12 @@ namespace ZeusTPV
                 var result = command.Execute();
                 UpdateFile(result);
 
-                // Update status on UI thread
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    // update status label
-                });
+                Console.WriteLine("SSH connection established successfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Connection error: {ex.Message}");
             }
-        }
-
-        public void Start()
-        {
-            isRunning = true;
-            workerThread = new Thread(Run)
-            {
-                IsBackground = true // Equivalent to setDaemon(True)
-            };
-            workerThread.Start();
-        }
-
-        public void Stop()
-        {
-            isRunning = false;
-            sshClient?.Disconnect();
-            sshClient?.Dispose();
         }
 
         private void Run()
@@ -85,52 +72,86 @@ namespace ZeusTPV
                 {
                     if (sshClient != null && sshClient.IsConnected)
                     {
-                        var command = sshClient.CreateCommand("python /home/i611usr/read_position.py");
+                        // Execute Python script - equivalent to stdin, stdout, stderr = self.ssh.exec_command(...)
+                        var command = sshClient.CreateCommand("python /opt/i611/tools/read_position.py");
                         var result = command.Execute();
 
                         if (!string.IsNullOrEmpty(result))
                         {
-                            var values = result.Trim().Split(',');
+                            // Split result - equivalent to list = stdout.readline().split(',')
+                            var list = result.Trim().Split(',');
 
-                            if (values.Length >= 15)
+                            if (list.Length >= 17) // Ensure we have enough elements
                             {
-                                // Copy to MainWindow().CurPositionList[]
-                                var curPositionList = new List<object>();
-
-                                // Add float values for positions 0-5
-                                for (int i = 0; i < 6; i++)
+                                try
                                 {
-                                    if (float.TryParse(values[i], out float floatVal))
-                                        curPositionList.Add(floatVal);
-                                }
+                                    // Copy to CurPositionList - equivalent to self.ow.td.CurPositionList = [float(s) for s in list[:6]]
+                                    CurPositionList.Clear();
 
-                                // Add int values for positions 6-7
-                                for (int i = 6; i < 8; i++)
-                                {
-                                    if (int.TryParse(values[i], out int intVal))
-                                        curPositionList.Add(intVal);
-                                }
-
-                                // Add float values for remaining positions
-                                for (int i = 8; i < values.Length; i++)
-                                {
-                                    if (float.TryParse(values[i], out float floatVal))
-                                        curPositionList.Add(floatVal);
-                                }
-
-                                // Update UI on main thread
-                                Application.Current.Dispatcher.Invoke(() =>
-                                {
-                                    //UpdateUI(values);
-                                });
-
-                                // Check singular point
-                                if (values.Length > 14 && values[14].Length > 0)
-                                {
-                                    if (int.TryParse(values[14][0].ToString(), out int singularCheck))
+                                    // Add float values for positions 0-5
+                                    for (int i = 0; i < 6; i++)
                                     {
-                                        CheckSingular(singularCheck);
+                                        CurPositionList.Add(double.Parse(list[i]));
                                     }
+
+                                    // Add int values for positions 6-7, then convert to double
+                                    // equivalent to self.ow.td.CurPositionList.extend([int(s) for s in list[6:8]])
+                                    for (int i = 6; i < 8; i++)
+                                    {
+                                        CurPositionList.Add(double.Parse(list[i]));
+                                    }
+
+                                    // Add float values for positions 8-13
+                                    // equivalent to self.ow.td.CurPositionList.extend([float(s) for s in list[8:14]])
+                                    for (int i = 8; i < 14; i++)
+                                    {
+                                        CurPositionList.Add(double.Parse(list[i]));
+                                    }
+
+                                    // Check status flags
+                                    RetSingular = CheckSingular(int.Parse(list[14][0].ToString()));
+                                    RetSpdLimit = CheckSpdLimit(int.Parse(list[15][0].ToString()));
+                                    RetAngleLimit = CheckJntAngleLimit(int.Parse(list[16][0].ToString()));
+
+                                    // Create position data object
+                                    var positionData = new PositionData
+                                    {
+                                        X = double.Parse(list[0]),
+                                        Y = double.Parse(list[1]),
+                                        Z = double.Parse(list[2]),
+                                        RZ = double.Parse(list[3]),
+                                        RY = double.Parse(list[4]),
+                                        RX = double.Parse(list[5]),
+                                        Posture = list[6],
+                                        Mt = $"0x{int.Parse(list[7]):X6}",
+                                        J1 = double.Parse(list[8]),
+                                        J2 = double.Parse(list[9]),
+                                        J3 = double.Parse(list[10]),
+                                        J4 = double.Parse(list[11]),
+                                        J5 = double.Parse(list[12]),
+                                        J6 = double.Parse(list[13])
+                                    };
+
+                                    var jogStatus = new JogStatus
+                                    {
+                                        RetSingular = RetSingular,
+                                        RetSpdLimit = RetSpdLimit,
+                                        RetAngleLimit = RetAngleLimit
+                                    };
+
+                                    // Update UI on main thread
+                                    Application.Current.Dispatcher.Invoke(() =>
+                                    {
+                                        // Raise events to notify subscribers
+                                        PositionUpdated?.Invoke(positionData);
+                                        JogStatusUpdated?.Invoke(jogStatus);
+                                    });
+
+                                    Console.WriteLine($"Singular: {RetSingular}, SpdLimit: {RetSpdLimit}, AngleLimit: {RetAngleLimit}");
+                                }
+                                catch (Exception parseEx)
+                                {
+                                    Console.WriteLine($"Parse error: {parseEx.Message}");
                                 }
                             }
                         }
@@ -145,96 +166,102 @@ namespace ZeusTPV
             }
         }
 
-        //private void UpdateUI(string[] values)
-        //{
-        //    try
-        //    {
-        //        if (values.Length >= 14)
-        //        {
-        //            // Update position displays
-        //            ow.TchCurX.Text = float.Parse(values[0]).ToString("F3");
-        //            ow.TchCurY.Text = float.Parse(values[1]).ToString("F3");
-        //            ow.TchCurZ.Text = float.Parse(values[2]).ToString("F3");
-        //            ow.TchCurRZ.Text = float.Parse(values[3]).ToString("F3");
-        //            ow.TchCurRY.Text = float.Parse(values[4]).ToString("F3");
-        //            ow.TchCurRX.Text = float.Parse(values[5]).ToString("F3");
+        // Status check methods
+        private bool CheckSingular(int chk)
+        {
+            bool isSingular = chk == 1;
 
-        //            ow.TchCurPosture.Text = values[6];
-        //            ow.TchCurMt.Text = "0x" + int.Parse(values[7]).ToString("X6");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (isSingular)
+                {
+                    Console.WriteLine("Singular Point detected");
+                    // Add buzzer/vibration logic here
+                }
+            });
 
-        //            ow.TchCurJ1.Text = float.Parse(values[8]).ToString("F3");
-        //            ow.TchCurJ2.Text = float.Parse(values[9]).ToString("F3");
-        //            ow.TchCurJ3.Text = float.Parse(values[10]).ToString("F3");
-        //            ow.TchCurJ4.Text = float.Parse(values[11]).ToString("F3");
-        //            ow.TchCurJ5.Text = float.Parse(values[12]).ToString("F3");
-        //            ow.TchCurJ6.Text = float.Parse(values[13]).ToString("F3");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"UI Update error: {ex.Message}");
-        //    }
-        //}
+            return isSingular;
+        }
+
+        private bool CheckSpdLimit(int chk)
+        {
+            return chk == 1;
+        }
+
+        private bool CheckJntAngleLimit(int chk)
+        {
+            return chk == 1;
+        }
+
+        public void Start()
+        {
+            isRunning = true;
+            workerThread = new Thread(Run)
+            {
+                IsBackground = true
+            };
+            workerThread.Start();
+        }
+
+        public void Stop()
+        {
+            isRunning = false;
+            sshClient?.Disconnect();
+            sshClient?.Dispose();
+        }
 
         private void UpdateFile(string fileList)
         {
             var lines = fileList.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-            FilesList.Clear(); // Clear previous file list
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                FilesList.Clear();
+            });
 
             foreach (var line in lines)
             {
                 string fileName = line.Trim();
 
-                // Check for .pyc files (skip them)
                 if (fileName.Contains(".pyc"))
                     continue;
 
-                // Check for .py files
                 if (fileName.Contains(".py"))
                 {
                     count++;
-                    FilesList.Add(fileName);
-
-                    //Application.Current.Dispatcher.Invoke(() =>
-                    //{
-                    //    // Create tree widget item equivalent
-                    //    // This would depend on your WPF tree structure
-                    //    // Example if using TreeView:
-                    //    /*
-                    //    var item = new TreeViewItem();
-                    //    item.Header = $"{count}.";
-
-                    //    // Remove .py extension
-                    //    string fileNameWithoutExt = fileName.Substring(0, fileName.Length - 3);
-                    //    var subItem = new TreeViewItem();
-                    //    subItem.Header = fileNameWithoutExt;
-                    //    item.Items.Add(subItem);
-
-                    //    ow.TchTreeView.Items.Add(item);
-                    //    */
-                    //});
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        FilesList.Add($"{count:D2}. {fileName.Replace(".py", "")}");
+                    });
                 }
             }
             count = 0;
         }
-
-        private void CheckSingular(int chk)
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                if (chk == 1)
-                {
-                    //ow.StatusLbl.Content = "Singular Point";
-                    // device.Buzzer_Sound();
-                    // device.Buzzer_ON();
-                    // device.Vibration_ON();
-                }
-                else
-                {
-                    // ow.StatusLbl.Content = "Connection";
-                }
-            });
-        }
     }
 
+    // Data classes for position and status
+    public class PositionData
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
+        public double RZ { get; set; }
+        public double RY { get; set; }
+        public double RX { get; set; }
+        public string Posture { get; set; } = "";
+        public string Mt { get; set; } = "";
+        public double J1 { get; set; }
+        public double J2 { get; set; }
+        public double J3 { get; set; }
+        public double J4 { get; set; }
+        public double J5 { get; set; }
+        public double J6 { get; set; }
+    }
+
+    public class JogStatus
+    {
+        public bool RetSingular { get; set; }
+        public bool RetSpdLimit { get; set; }
+        public bool RetAngleLimit { get; set; }
+    }
 }
